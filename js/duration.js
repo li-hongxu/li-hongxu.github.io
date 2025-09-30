@@ -1,6 +1,6 @@
 var now = new Date();
 function createtime() {
-    var grt= new Date("09/25/2025 9:50:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+    var grt = new Date("2025-09-25T09:50:00+08:00"); // +08:00 表示北京时间;//在此处修改你的建站时间，格式：月/日/年 时:分:秒
     now.setTime(now.getTime()+250);
     days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
     hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
