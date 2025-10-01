@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>为什么激活函数的改进可以提高模型性能？</title>
+    <link href="/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/"/>
+    <url>/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/</url>
+    
+    <content type="html"><![CDATA[<h1id="为什么激活函数的改进可以提高模型性能">为什么激活函数的改进可以提高模型性能？</h1><p>上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？</p><h2 id="实例演示---不同激活函数的影响">实例演示 -不同激活函数的影响</h2><p>为了回答这个问题，我们先看看不同的激活函数效果有何不同。</p><p>我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。</p><p>核心代码如下</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># Definition of the network</span><br>model = Sequential()<br>model.<span class="hljs-built_in">add</span>(Dense(8, input_shape=(2,),<span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;sigmoid&#x27;</span>))<br>model.<span class="hljs-built_in">add</span>(Dense(2, <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;softmax&#x27;</span>))<br><br><span class="hljs-comment"># Definition of the optimizer</span><br>sgd = optimizers.SGD(<span class="hljs-attribute">learning_rate</span>=0.15)  <br><br>model.compile(<span class="hljs-attribute">loss</span>=<span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span>,<br>              <span class="hljs-attribute">optimizer</span>=sgd,<br>              metrics=[<span class="hljs-string">&#x27;accuracy&#x27;</span>])<br></code></pre></td></tr></table></figure><figure><img src="/img/2025-10-01-22-22-34.png" alt="不同激活函数效果对比" /><figcaption aria-hidden="true">不同激活函数效果对比</figcaption></figure><p>很明显，相比Sigmond激活函数，ReLU和GELU激活函数更快收敛。其中，Gelu的曲线相比Relu更平滑些，收敛速度相差不大。</p><h2 id="为什么会这样">为什么会这样？</h2><p>这背后的原因，其实和激活函数的数学特性和梯度传播有关。</p><h3 id="sigmoid-及其梯度">Sigmoid 及其梯度</h3><figure><img src="/img/2025-10-01-22-45-09.png" alt="sigmoid函数和梯度图" /><figcaption aria-hidden="true">sigmoid函数和梯度图</figcaption></figure><p>Sigmoid 函数定义为：</p><p><span class="math display">$$\sigma(x) = \frac{1}{1 + e^{-x}}$$</span></p><p>其梯度为：</p><p><spanclass="math display"><em>σ</em><sup>′</sup>(<em>x</em>) = <em>σ</em>(<em>x</em>)(1 − <em>σ</em>(<em>x</em>))</span></p><p>Sigmoid 的输出在 <span class="math inline">(0, 1)</span> 之间，当<span class="math inline"><em>x</em> → ∞</span> 时，<spanclass="math inline"><em>σ</em>(<em>x</em>) → 1</span>，<spanclass="math inline"><em>σ</em><sup>′</sup>(<em>x</em>) → 0</span>；<br />当 <span class="math inline"><em>x</em> → −∞</span> 时，<spanclass="math inline"><em>σ</em>(<em>x</em>) → 0</span>，<spanclass="math inline"><em>σ</em><sup>′</sup>(<em>x</em>) → 0</span>。</p><p>这说明当输入很大或很小时，梯度几乎为零，神经元几乎没有“推动力”去更新参数。而且，Sigmoid的最大梯度也仅为0.25，由于反向传播中梯度是各层梯度的乘积，多层网络中梯度会呈指数衰减，因此训练速度很慢。</p><hr /><h3 id="relu">2️⃣ ReLU</h3><p>ReLU 函数定义为：</p><p><spanclass="math display">ReLU(<em>x</em>) = max (0, <em>x</em>)</span></p><p>梯度为：</p><p><span class="math display">$$\text{ReLU}'(x) =\begin{cases}1 &amp; x &gt; 0 \\0 &amp; x \le 0\end{cases}$$</span></p><p>相比之下，ReLU 在正区间的梯度为1，误差能顺利传播，因此训练深层网络时收敛快；</p><p>不过负区间梯度为 0，可能出现“死神经元”，但整体影响比 Sigmoid小得多。</p><h2 id="什么样的激活函数更好">什么样的激活函数更好？</h2><p>当前没有最好的激活函数，不同场景下选择不同的激活函数效果差别很大。但可以从几个角度来理解“好”的标准：</p><ul><li><p><strong>梯度</strong></p><ul><li>梯度不消失：在多层网络中，梯度最好不要在大部分输入范围内消失，否则训练会很慢。<br /></li><li>梯度不过大：梯度过大容易导致梯度爆炸，权重更新不稳定。</li><li><strong>ReLU</strong>：正区间梯度恒为1，训练深层网络非常有效。<br /></li><li><strong>Leaky ReLU / ParametricReLU</strong>：负区间也有小梯度，避免“死亡神经元”问题。<br /></li><li><strong>ELU /GELU</strong>：在负区间也有平滑梯度，同时输出更平滑，有利于收敛。</li></ul></li><li><p><strong>非线性表达能力</strong>激活函数提供非线性，使网络能拟合复杂函数。</p><ul><li><strong>Sigmoid / tanh</strong> 的非线性强，但容易梯度消失。<br /></li><li><strong>ReLU 系列</strong>非线性简单，但在深层网络表现很好，通常配合 BatchNorm 使用。</li></ul></li><li><p><strong>输出范围与任务匹配</strong></p><ul><li>二分类输出：Sigmoid 适合输出概率 ((0,1))。<br /></li><li>多分类输出：Softmax 适合输出概率分布。<br /></li><li>回归输出：通常最后一层不使用激活函数（或线性激活），隐藏层可用 ReLU系列。</li></ul></li></ul><h2 id="总结">总结</h2><ol type="1"><li><p>激活函数对模型训练的影响，主要体现在梯度的大小和分布上。</p></li><li><p>梯度决定了反向传播时参数更新的“推动力”，如果梯度过小（如 Sigmoid在极值区域），训练会很慢甚至停滞（梯度消失）；如果梯度适中且不容易消失（如ReLU 在正区间），训练会更高效。</p></li><li><p>激活函数还影响非线性表达能力和收敛稳定性，但梯度是核心原因。</p></li><li><p>并没有最优的激活函数，选择时需要考虑任务需求和模型结构。</p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>深度学习读书笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>神经网络</tag>
+      
+      <tag>激活函数</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>隐藏层的作用 — 以真假钞分类为例</title>
     <link href="/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/"/>
     <url>/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/</url>
@@ -22,9 +49,9 @@
       
       <tag>神经网络</tag>
       
-      <tag>隐藏层</tag>
-      
       <tag>激活函数</tag>
+      
+      <tag>隐藏层</tag>
       
     </tags>
     

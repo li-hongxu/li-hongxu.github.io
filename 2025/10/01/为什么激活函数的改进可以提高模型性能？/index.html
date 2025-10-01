@@ -19,31 +19,28 @@
   <meta name="author" content="Hongxu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签   数据分布  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义">
+    <meta name="description" content="为什么激活函数的改进可以提高模型性能？ 上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？ 实例演示 - 不同激活函数的影响 为了回答这个问题，我们先看看不同的激活函数效果有何不同。 我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。 核心代码如下 123456">
 <meta property="og:type" content="article">
-<meta property="og:title" content="隐藏层的作用 — 以真假钞分类为例">
-<meta property="og:url" content="http://example.com/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/index.html">
+<meta property="og:title" content="为什么激活函数的改进可以提高模型性能？">
+<meta property="og:url" content="http://example.com/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签   数据分布  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义">
+<meta property="og:description" content="为什么激活函数的改进可以提高模型性能？ 上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？ 实例演示 - 不同激活函数的影响 为了回答这个问题，我们先看看不同的激活函数效果有何不同。 我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。 核心代码如下 123456">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/2025-09-27-15-55-06.png">
-<meta property="og:image" content="http://example.com/img/2025-09-28-12-57-06.png">
-<meta property="og:image" content="http://example.com/img/2025-09-28-13-20-21.png">
-<meta property="og:image" content="http://example.com/img/2025-09-28-14-21-26.png">
-<meta property="article:published_time" content="2025-09-27T07:24:10.000Z">
-<meta property="article:modified_time" content="2025-09-30T08:10:23.014Z">
+<meta property="og:image" content="http://example.com/img/2025-10-01-22-22-34.png">
+<meta property="og:image" content="http://example.com/img/2025-10-01-22-45-09.png">
+<meta property="article:published_time" content="2025-10-01T13:51:19.000Z">
+<meta property="article:modified_time" content="2025-10-01T14:59:21.635Z">
 <meta property="article:author" content="Hongxu">
 <meta property="article:tag" content="神经网络">
 <meta property="article:tag" content="激活函数">
-<meta property="article:tag" content="隐藏层">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/2025-09-27-15-55-06.png">
+<meta name="twitter:image" content="http://example.com/img/2025-10-01-22-22-34.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>隐藏层的作用 — 以真假钞分类为例 - 白墨</title>
+  <title>为什么激活函数的改进可以提高模型性能？ - 白墨</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -220,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="隐藏层的作用 — 以真假钞分类为例"></span>
+            <span id="subtitle" data-typed-text="为什么激活函数的改进可以提高模型性能？"></span>
           
         </div>
 
@@ -231,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-27 15:24" pubdate>
-          2025年9月27日 下午
+        <time datetime="2025-10-01 21:51" pubdate>
+          2025年10月1日 晚上
         </time>
       </span>
     
@@ -243,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          968 字
         
       </span>
     
@@ -254,7 +251,7 @@
         
         
         
-          12 分钟
+          9 分钟
         
       </span>
     
@@ -291,89 +288,107 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">隐藏层的作用 — 以真假钞分类为例</h1>
+            <h1 id="seo-header">为什么激活函数的改进可以提高模型性能？</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="隐藏层的作用-以真假钞分类为例">隐藏层的作用 —
-以真假钞分类为例</h1>
-<p>什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。</p>
-<h2 id="真假钞分类">真假钞分类</h2>
-<p>我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签</p>
+                <h1
+id="为什么激活函数的改进可以提高模型性能">为什么激活函数的改进可以提高模型性能？</h1>
+<p>上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？</p>
+<h2 id="实例演示---不同激活函数的影响">实例演示 -
+不同激活函数的影响</h2>
+<p>为了回答这个问题，我们先看看不同的激活函数效果有何不同。</p>
+<p>我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。</p>
+<p>核心代码如下</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># Definition of the network</span><br>model = Sequential()<br>model.<span class="hljs-built_in">add</span>(Dense(8, input_shape=(2,),<span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;sigmoid&#x27;</span>))<br>model.<span class="hljs-built_in">add</span>(Dense(2, <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;softmax&#x27;</span>))<br><br><span class="hljs-comment"># Definition of the optimizer</span><br>sgd = optimizers.SGD(<span class="hljs-attribute">learning_rate</span>=0.15)  <br><br>model.compile(<span class="hljs-attribute">loss</span>=<span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span>,<br>              <span class="hljs-attribute">optimizer</span>=sgd,<br>              metrics=[<span class="hljs-string">&#x27;accuracy&#x27;</span>])<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/img/2025-09-27-15-55-06.png" srcset="/img/loading.gif" lazyload alt="数据分布" />
-<figcaption aria-hidden="true">数据分布</figcaption>
+<img src="/img/2025-10-01-22-22-34.png" srcset="/img/loading.gif" lazyload alt="不同激活函数效果对比" />
+<figcaption aria-hidden="true">不同激活函数效果对比</figcaption>
 </figure>
-<h3 id="构建单神经元神经网络">构建单神经元神经网络</h3>
-<p>这里，我们用Keras来构建一个序列模式神经网络。</p>
-<p>核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。</p>
-<p>定义完模型后，开始编译模型，编译是定义“损失函数+优化器+评估指标”的综合过程。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs routeros">model = Sequential()<br><br>model.<span class="hljs-built_in">add</span>( Dense(1,<br>            batch_input_shape=(None,2),<br>            <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;sigmoid&#x27;</span>)<br>)<br><br><span class="hljs-comment"># 1 是为神经网络添加新层，由于是单神经元，所以为1 </span><br><span class="hljs-comment"># 输入大小为（bathsize,2) 的张量，None表示batchsize可以任意大小</span><br><br><br>sgd = optimizers.SGD(lr =0.15)<br><br>model .compile(<br>            <span class="hljs-attribute">loss</span>=<span class="hljs-string">&#x27;binary_crossentropy&#x27;</span>,<br>             # 交叉熵损失函数，常用于分类模型<br>            <span class="hljs-attribute">optimizer</span>=sgd,<br>)<br><br>model.compline(<br>            loss = <span class="hljs-string">&#x27;binary_crossentropy&#x27;</span>, <br>            <span class="hljs-attribute">optimizer</span>=sgd,  <br>)<br><span class="hljs-comment"># 编译网络，结束模型定义</span><br><br>history = model.fit(X, Y, <span class="hljs-attribute">epochs</span>=400,<br>                        <span class="hljs-attribute">batch_size</span>=10,)<br><span class="hljs-comment"># 之所以叫history ，是因为 model.fit() 训练模型时，会返回一个 History 对象。</span><br><span class="hljs-comment"># 这个对象记录了训练过程中每个 epoch 的损失（loss）、准确率（accuracy）等指标的“历史”变化。</span><br><span class="hljs-comment"># 所以变量名通常用 history，表示“训练历史”</span><br><br><span class="hljs-comment"># 注意，这里的代码是基于TF2.0的，对于最新版本的TF，需要进行修改，包括batch_input_shape 应为input_shape，lr应为learning_rate等</span><br></code></pre></td></tr></table></figure>
-<h3 id="无隐藏层的训练结果">无隐藏层的训练结果</h3>
-<p>这里，我们使用分类模型决策边界可视化，来查看训练结果。
-就是把模型是如何区分不同类别的那条分界线 画出来，让人直观地看到。</p>
+<p>很明显，相比Sigmond激活函数，ReLU和GELU激活函数更快收敛。其中，Gelu的曲线相比Relu更平滑些，收敛速度相差不大。</p>
+<h2 id="为什么会这样">为什么会这样？</h2>
+<p>这背后的原因，其实和激活函数的数学特性和梯度传播有关。</p>
+<h3 id="sigmoid-及其梯度">Sigmoid 及其梯度</h3>
 <figure>
-<img src="/img/2025-09-28-12-57-06.png" srcset="/img/loading.gif" lazyload alt="单神经元时的决策边界" />
-<figcaption aria-hidden="true">单神经元时的决策边界</figcaption>
+<img src="/img/2025-10-01-22-45-09.png" srcset="/img/loading.gif" lazyload alt="sigmoid函数和梯度图" />
+<figcaption aria-hidden="true">sigmoid函数和梯度图</figcaption>
 </figure>
-<blockquote>
-<p>背景颜色 = 模型预测某点是 类别 1 的概率。
-颜色深的地方，模型更确信这是 1； 颜色浅的地方，模型更确信这是 0。
-等高线（contourf）就是不同概率的分层。</p>
-</blockquote>
-<p>从左图可以看到，决策边界是直线。而实际情况是，真假钞票的边界并不是一条直线。</p>
-<p>这说明当前模型的预测能力差，并没有学习到真假钞票的特征。</p>
-<h3 id="添加隐藏层">添加隐藏层</h3>
-<p>这里我们使用一个包含8个神经元的隐藏层。还将输出节点从1更改为2，以获得真钞和假钞概率的两个输出。</p>
-<figure>
-<img src="/img/2025-09-28-13-20-21.png" srcset="/img/loading.gif" lazyload alt="加入隐藏层后的结果" />
-<figcaption aria-hidden="true">加入隐藏层后的结果</figcaption>
-</figure>
-<p>可以看到，加入隐藏层后，决策边界变成了曲线。这说明模型已经学习到了真假钞票的特征。</p>
-<p>最后也来对比下隐藏层数量对于loss和准确率的影响</p>
-<figure>
-<img src="/img/2025-09-28-14-21-26.png" srcset="/img/loading.gif" lazyload
-alt="对比隐藏层数量对模型的影响" />
-<figcaption aria-hidden="true">对比隐藏层数量对模型的影响</figcaption>
-</figure>
-<p>可以发现，有隐藏层的模型在训练精度和训练 loss
-上明显优于无隐藏层模型。<br />
-随着隐藏层数量增加，模型训练达到理想精度的速度更快，训练曲线也更加平滑。然而，增加隐藏层并未显著提升最终准确率。<br />
-另外，训练 loss 在隐藏层数量为 1
-时达到最低，这表明仅增加隐藏层和神经元数量并不一定提高模型的最终性能，过多的参数可能导致优化更困难或过拟合。</p>
-<h3 id="为什么会这样">为什么会这样</h3>
-<p>之所以如此，是因为没有隐藏层时，输入直接连到输出，本质上就是一个逻辑回归，只能学习线性可分的决策边界。</p>
-<p>而当加入隐藏层时，它具有非线性激活函数（sigmoid, ReLU, tanh
-等），模型就不再是简单的线性变换，而是可以进行非线性映射。</p>
-<p>这样模型可以把输入空间映射到一个更高维的特征空间，在这个空间里，原本线性不可分的数据可能就能分开。</p>
-<p>具体来说：</p>
+<p>Sigmoid 函数定义为：</p>
+<p><span class="math display">$$
+\sigma(x) = \frac{1}{1 + e^{-x}}
+$$</span></p>
+<p>其梯度为：</p>
+<p><span
+class="math display"><em>σ</em><sup>′</sup>(<em>x</em>) = <em>σ</em>(<em>x</em>)(1 − <em>σ</em>(<em>x</em>))</span></p>
+<p>Sigmoid 的输出在 <span class="math inline">(0, 1)</span> 之间，当
+<span class="math inline"><em>x</em> → ∞</span> 时，<span
+class="math inline"><em>σ</em>(<em>x</em>) → 1</span>，<span
+class="math inline"><em>σ</em><sup>′</sup>(<em>x</em>) → 0</span>；<br />
+当 <span class="math inline"><em>x</em> → −∞</span> 时，<span
+class="math inline"><em>σ</em>(<em>x</em>) → 0</span>，<span
+class="math inline"><em>σ</em><sup>′</sup>(<em>x</em>) → 0</span>。</p>
+<p>这说明当输入很大或很小时，梯度几乎为零，神经元几乎没有“推动力”去更新参数。而且，Sigmoid的最大梯度也仅为0.25，由于反向传播中梯度是各层梯度的乘积，多层网络中梯度会呈指数衰减，因此训练速度很慢。</p>
+<hr />
+<h3 id="relu">2️⃣ ReLU</h3>
+<p>ReLU 函数定义为：</p>
+<p><span
+class="math display">ReLU(<em>x</em>) = max (0, <em>x</em>)</span></p>
+<p>梯度为：</p>
+<p><span class="math display">$$
+\text{ReLU}'(x) =
+\begin{cases}
+1 &amp; x &gt; 0 \\
+0 &amp; x \le 0
+\end{cases}
+$$</span></p>
+<p>相比之下，ReLU 在正区间的梯度为
+1，误差能顺利传播，因此训练深层网络时收敛快；</p>
+<p>不过负区间梯度为 0，可能出现“死神经元”，但整体影响比 Sigmoid
+小得多。</p>
+<h2 id="什么样的激活函数更好">什么样的激活函数更好？</h2>
+<p>当前没有最好的激活函数，不同场景下选择不同的激活函数效果差别很大。但可以从几个角度来理解“好”的标准：</p>
 <ul>
-<li><p><em>对于没有激活函数的模型</em>：</p>
-<p>即便叠加再多的Dense，它依然是 <span
-class="math display"><em>f</em>(<em>x</em>) = <em>W</em><sub><em>k</em></sub>(<em>W</em><sub><em>k</em> − 1</sub>(…(<em>W</em><sub>1</sub><em>x</em> + <em>b</em><sub>1</sub>)…) + <em>b</em><sub><em>k</em> − 1</sub>) + <em>b</em><sub><em>k</em></sub></span></p>
-<p>实际上依然是： <span
-class="math display"><em>f</em>(<em>x</em>) = <em>W</em><sup>′</sup><em>x</em> + <em>b</em><sup>′</sup></span>
-依然是一个线性变换</p></li>
-<li><p><em>对于有激活函数的模型</em>：</p>
-<p>每一个神经元的输出为： <span
-class="math display"><em>h</em> = <em>σ</em>(<em>W</em><em>x</em> + <em>b</em>)</span></p>
-<p>其中，<span class="math inline"><em>σ</em></span> 是激活函数</p>
-<p>这样，每个每个神经元的输出便是非线性的，多个非线性叠加，就能产生更复杂的形状。</p></li>
+<li><p><strong>梯度</strong></p>
+<ul>
+<li>梯度不消失：在多层网络中，梯度最好不要在大部分输入范围内消失，否则训练会很慢。<br />
+</li>
+<li>梯度不过大：梯度过大容易导致梯度爆炸，权重更新不稳定。</li>
+<li><strong>ReLU</strong>：正区间梯度恒为
+1，训练深层网络非常有效。<br />
+</li>
+<li><strong>Leaky ReLU / Parametric
+ReLU</strong>：负区间也有小梯度，避免“死亡神经元”问题。<br />
+</li>
+<li><strong>ELU /
+GELU</strong>：在负区间也有平滑梯度，同时输出更平滑，有利于收敛。</li>
+</ul></li>
+<li><p><strong>非线性表达能力</strong>
+激活函数提供非线性，使网络能拟合复杂函数。</p>
+<ul>
+<li><strong>Sigmoid / tanh</strong> 的非线性强，但容易梯度消失。<br />
+</li>
+<li><strong>ReLU 系列</strong>
+非线性简单，但在深层网络表现很好，通常配合 BatchNorm 使用。</li>
+</ul></li>
+<li><p><strong>输出范围与任务匹配</strong></p>
+<ul>
+<li>二分类输出：Sigmoid 适合输出概率 ((0,1))。<br />
+</li>
+<li>多分类输出：Softmax 适合输出概率分布。<br />
+</li>
+<li>回归输出：通常最后一层不使用激活函数（或线性激活），隐藏层可用 ReLU
+系列。</li>
+</ul></li>
 </ul>
-<p>👉 通用近似定理 <span class="math display">$$
-F(x) = \sum_{j=1}^m \alpha_j \sigma(w_j^T x + b_j)
-$$</span> 对于任意连续函数 𝑓，只要激活函数是非线性的、可微的（比如
-sigmoid、ReLU），就存在一个单隐藏层神经网络可以逼近它</p>
 <h2 id="总结">总结</h2>
 <ol type="1">
-<li>隐藏层的作用是学习数据中的非线性特征。</li>
-<li>隐藏层的神经元越多，模型的表达能力越强，但同时也增加了模型的复杂度和计算量。</li>
-<li>隐藏层能发挥作用，主要是因为其中的激活函数</li>
-<li>在 Jupyter 中训练多个模型时，每个模型在编译前都应使用一个新的
-optimizer，否则会报错。原因是 Keras 在 model.compile()
-时，会将优化器绑定到模型的可训练变量上，并在内部记录变量状态（如动量、梯度累积），旧的
-optimizer 无法识别新模型的变量。</li>
+<li><p>激活函数对模型训练的影响，主要体现在梯度的大小和分布上。</p></li>
+<li><p>梯度决定了反向传播时参数更新的“推动力”，如果梯度过小（如 Sigmoid
+在极值区域），训练会很慢甚至停滞（梯度消失）；如果梯度适中且不容易消失（如
+ReLU 在正区间），训练会更高效。</p></li>
+<li><p>激活函数还影响非线性表达能力和收敛稳定性，但梯度是核心原因。</p></li>
+<li><p>并没有最优的激活函数，选择时需要考虑任务需求和模型结构。</p></li>
 </ol>
 
                 
@@ -412,8 +427,6 @@ optimizer 无法识别新模型的变量。</li>
       
         <a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" class="print-no-link">#激活函数</a>
       
-        <a href="/tags/%E9%9A%90%E8%97%8F%E5%B1%82/" class="print-no-link">#隐藏层</a>
-      
     </div>
   
 </div>
@@ -424,8 +437,8 @@ optimizer 无法识别新模型的变量。</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>隐藏层的作用 — 以真假钞分类为例</div>
-      <div>http://example.com/2025/09/27/隐藏层的作用 — 以真假钞分类为例/</div>
+      <div>为什么激活函数的改进可以提高模型性能？</div>
+      <div>http://example.com/2025/10/01/为什么激活函数的改进可以提高模型性能？/</div>
     </div>
     <div class="license-meta">
       
@@ -437,7 +450,7 @@ optimizer 无法识别新模型的变量。</li>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月27日</div>
+          <div>2025年10月1日</div>
         </div>
       
       
@@ -475,18 +488,12 @@ optimizer 无法识别新模型的变量。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/" title="为什么激活函数的改进可以提高模型性能？">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">为什么激活函数的改进可以提高模型性能？</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/25/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/" title="隐藏层的作用 — 以真假钞分类为例">
+                        <span class="hidden-mobile">隐藏层的作用 — 以真假钞分类为例</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
