@@ -19,12 +19,12 @@
   <meta name="author" content="Hongxu Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="为什么激活函数的改进可以提高模型性能？ 上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？ 实例演示 - 不同激活函数的影响 为了回答这个问题，我们先看看不同的激活函数效果有何不同。 我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。 核心代码如下 123456">
+    <meta name="description" content="为什么激活函数的改进可以提高模型性能？ 上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？ 实例演示 - 不同激活函数的影响 为了回答这个问题，我们先看看不同的激活函数效果有何不同。 我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。 核心代码如下 1234567891011">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么激活函数的改进可以提高模型性能？">
 <meta property="og:url" content="http://example.com/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="为什么激活函数的改进可以提高模型性能？ 上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？ 实例演示 - 不同激活函数的影响 为了回答这个问题，我们先看看不同的激活函数效果有何不同。 我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。 核心代码如下 123456">
+<meta property="og:description" content="为什么激活函数的改进可以提高模型性能？ 上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？ 实例演示 - 不同激活函数的影响 为了回答这个问题，我们先看看不同的激活函数效果有何不同。 我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。 核心代码如下 1234567891011">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/2025-10-01-22-22-34.png">
 <meta property="og:image" content="http://example.com/img/2025-10-01-22-45-09.png">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          971 字
+          1k 字
         
       </span>
     
@@ -293,102 +293,86 @@
             
               <div class="markdown-body">
                 
-                <h1
-id="为什么激活函数的改进可以提高模型性能">为什么激活函数的改进可以提高模型性能？</h1>
+                <h1>为什么激活函数的改进可以提高模型性能？</h1>
 <p>上篇博文，我们已经介绍了激活函数的基本原理。但是，为什么不同的激活函数对于模型的影响不同？什么样的激活函数是更好的呢？</p>
-<h2 id="实例演示---不同激活函数的影响">实例演示 -
-不同激活函数的影响</h2>
+<h2 id="实例演示-不同激活函数的影响">实例演示 - 不同激活函数的影响</h2>
 <p>为了回答这个问题，我们先看看不同的激活函数效果有何不同。</p>
 <p>我设计了3个对比实验，分别使用Sigmond、ReLU、和GELU作为隐藏层激活函数，并对比了模型的性能。</p>
 <p>核心代码如下</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># Definition of the network</span><br>model = Sequential()<br>model.<span class="hljs-built_in">add</span>(Dense(8, input_shape=(2,),<span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;sigmoid&#x27;</span>))<br>model.<span class="hljs-built_in">add</span>(Dense(2, <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;softmax&#x27;</span>))<br><br><span class="hljs-comment"># Definition of the optimizer</span><br>sgd = optimizers.SGD(<span class="hljs-attribute">learning_rate</span>=0.15)  <br><br>model.compile(<span class="hljs-attribute">loss</span>=<span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span>,<br>              <span class="hljs-attribute">optimizer</span>=sgd,<br>              metrics=[<span class="hljs-string">&#x27;accuracy&#x27;</span>])<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/img/2025-10-01-22-22-34.png" srcset="/img/loading.gif" lazyload alt="不同激活函数效果对比" />
-<figcaption aria-hidden="true">不同激活函数效果对比</figcaption>
-</figure>
+<p><img src="/img/2025-10-01-22-22-34.png" srcset="/img/loading.gif" lazyload alt="不同激活函数效果对比"></p>
 <p>很明显，相比Sigmond激活函数，ReLU和GELU激活函数更快收敛。其中，Gelu的曲线相比Relu更平滑些，收敛速度相差不大。</p>
-<h2 id="为什么会这样">为什么会这样？</h2>
+<h2 id="为什么会这样？">为什么会这样？</h2>
 <p>这背后的原因，其实和激活函数的数学特性和梯度传播有关。</p>
-<h3 id="sigmoid-及其梯度">Sigmoid 及其梯度</h3>
-<figure>
-<img src="/img/2025-10-01-22-45-09.png" srcset="/img/loading.gif" lazyload alt="sigmoid函数和梯度图" />
-<figcaption aria-hidden="true">sigmoid函数和梯度图</figcaption>
-</figure>
+<h3 id="Sigmoid-及其梯度">Sigmoid 及其梯度</h3>
+<p><img src="/img/2025-10-01-22-45-09.png" srcset="/img/loading.gif" lazyload alt="sigmoid函数和梯度图"></p>
 <p>Sigmoid 函数定义为：</p>
-<p><span class="math display">$$
-\sigma(x) = \frac{1}{1 + e^{-x}}
-$$</span></p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>σ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>x</mi></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\sigma(x) = \frac{1}{1 + e^{-x}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0908em;vertical-align:-0.7693em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6973em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 <p>其梯度为：</p>
-<p><span
-class="math display"><em>σ</em><sup>′</sup>(<em>x</em>) = <em>σ</em>(<em>x</em>)(1 − <em>σ</em>(<em>x</em>))</span></p>
-<p>Sigmoid 的输出在 <span class="math inline">(0, 1)</span> 之间，当
-<span class="math inline"><em>x</em> → ∞</span> 时，<span
-class="math inline"><em>σ</em>(<em>x</em>) → 1</span>，<span
-class="math inline"><em>σ</em><sup>′</sup>(<em>x</em>) → 0</span>；<br />
-当 <span class="math inline"><em>x</em> → −∞</span> 时，<span
-class="math inline"><em>σ</em>(<em>x</em>) → 0</span>，<span
-class="math inline"><em>σ</em><sup>′</sup>(<em>x</em>) → 0</span>。</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>σ</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sigma&#x27;(x) = \sigma(x)(1 - \sigma(x))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0519em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span></p>
+<p>Sigmoid 的输出在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(0,1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 之间，当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">x \to \infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord">∞</span></span></span></span> 时，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sigma(x) \to 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>σ</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma&#x27;(x) \to 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>；<br>
+当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>→</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">x \to -\infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span> 时，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma(x) \to 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>σ</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sigma&#x27;(x) \to 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>。</p>
 <p>这说明当输入很大或很小时，梯度几乎为零，神经元几乎没有“推动力”去更新参数。而且，Sigmoid的最大梯度也仅为0.25，由于反向传播中梯度是各层梯度的乘积，多层网络中梯度会呈指数衰减，因此训练速度很慢。</p>
-<hr />
-<h3 id="relu及其梯度">ReLU及其梯度</h3>
+<hr>
+<h3 id="ReLU及其梯度">ReLU及其梯度</h3>
 <p>ReLU 函数定义为：</p>
-<p><span
-class="math display">ReLU(<em>x</em>) = max (0, <em>x</em>)</span></p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>ReLU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{ReLU}(x) = \max(0, x)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">ReLU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></p>
 <p>梯度为：</p>
-<p><span class="math display">$$
-\text{ReLU}'(x) =
-\begin{cases}
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mtext>ReLU</mtext><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>≤</mo><mn>0</mn></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\text{ReLU}&#x27;(x) =
+\begin{cases} 
 1 &amp; x &gt; 0 \\
 0 &amp; x \le 0
 \end{cases}
-$$</span></p>
-<p>相比之下，ReLU 在正区间的梯度为
-1，误差能顺利传播，因此训练深层网络时收敛快；</p>
-<p>不过负区间梯度为 0，可能出现“死神经元”，但整体影响比 Sigmoid
-小得多。</p>
-<h2 id="什么样的激活函数更好">什么样的激活函数更好？</h2>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0751em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord text"><span class="mord">ReLU</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8251em;"><span style="top:-3.1362em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3em;vertical-align:-1.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>相比之下，ReLU 在正区间的梯度为 1，误差能顺利传播，因此训练深层网络时收敛快；</p>
+<p>不过负区间梯度为 0，可能出现“死神经元”，但整体影响比 Sigmoid 小得多。</p>
+<h2 id="什么样的激活函数更好？">什么样的激活函数更好？</h2>
 <p>当前没有最好的激活函数，不同场景下选择不同的激活函数效果差别很大。但可以从几个角度来理解“好”的标准：</p>
 <ul>
-<li><p><strong>梯度</strong></p>
+<li>
+<p><strong>梯度</strong></p>
 <ul>
-<li>梯度不消失：在多层网络中，梯度最好不要在大部分输入范围内消失，否则训练会很慢。<br />
-</li>
+<li>梯度不消失：在多层网络中，梯度最好不要在大部分输入范围内消失，否则训练会很慢。</li>
 <li>梯度不过大：梯度过大容易导致梯度爆炸，权重更新不稳定。</li>
-<li><strong>ReLU</strong>：正区间梯度恒为
-1，训练深层网络非常有效。<br />
+<li><strong>ReLU</strong>：正区间梯度恒为 1，训练深层网络非常有效。</li>
+<li><strong>Leaky ReLU / Parametric ReLU</strong>：负区间也有小梯度，避免“死亡神经元”问题。</li>
+<li><strong>ELU / GELU</strong>：在负区间也有平滑梯度，同时输出更平滑，有利于收敛。</li>
+</ul>
 </li>
-<li><strong>Leaky ReLU / Parametric
-ReLU</strong>：负区间也有小梯度，避免“死亡神经元”问题。<br />
-</li>
-<li><strong>ELU /
-GELU</strong>：在负区间也有平滑梯度，同时输出更平滑，有利于收敛。</li>
-</ul></li>
-<li><p><strong>非线性表达能力</strong>
+<li>
+<p><strong>非线性表达能力</strong><br>
 激活函数提供非线性，使网络能拟合复杂函数。</p>
 <ul>
-<li><strong>Sigmoid / tanh</strong> 的非线性强，但容易梯度消失。<br />
+<li><strong>Sigmoid / tanh</strong> 的非线性强，但容易梯度消失。</li>
+<li><strong>ReLU 系列</strong> 非线性简单，但在深层网络表现很好，通常配合 BatchNorm 使用。</li>
+</ul>
 </li>
-<li><strong>ReLU 系列</strong>
-非线性简单，但在深层网络表现很好，通常配合 BatchNorm 使用。</li>
-</ul></li>
-<li><p><strong>输出范围与任务匹配</strong></p>
+<li>
+<p><strong>输出范围与任务匹配</strong></p>
 <ul>
-<li>二分类输出：Sigmoid 适合输出概率 ((0,1))。<br />
+<li>二分类输出：Sigmoid 适合输出概率 ((0,1))。</li>
+<li>多分类输出：Softmax 适合输出概率分布。</li>
+<li>回归输出：通常最后一层不使用激活函数（或线性激活），隐藏层可用 ReLU 系列。</li>
+</ul>
 </li>
-<li>多分类输出：Softmax 适合输出概率分布。<br />
-</li>
-<li>回归输出：通常最后一层不使用激活函数（或线性激活），隐藏层可用 ReLU
-系列。</li>
-</ul></li>
 </ul>
 <h2 id="总结">总结</h2>
-<ol type="1">
-<li><p>激活函数对模型训练的影响，主要体现在梯度的大小和分布上。</p></li>
-<li><p>梯度决定了反向传播时参数更新的“推动力”，如果梯度过小（如 Sigmoid
-在极值区域），训练会很慢甚至停滞（梯度消失）；如果梯度适中且不容易消失（如
-ReLU 在正区间），训练会更高效。</p></li>
-<li><p>激活函数还影响非线性表达能力和收敛稳定性，但梯度是核心原因。</p></li>
-<li><p>并没有最优的激活函数，选择时需要考虑任务需求和模型结构。</p></li>
+<ol>
+<li>
+<p>激活函数对模型训练的影响，主要体现在梯度的大小和分布上。</p>
+</li>
+<li>
+<p>梯度决定了反向传播时参数更新的“推动力”，如果梯度过小（如 Sigmoid 在极值区域），训练会很慢甚至停滞（梯度消失）；如果梯度适中且不容易消失（如 ReLU 在正区间），训练会更高效。</p>
+</li>
+<li>
+<p>激活函数还影响非线性表达能力和收敛稳定性，但梯度是核心原因。</p>
+</li>
+<li>
+<p>并没有最优的激活函数，选择时需要考虑任务需求和模型结构。</p>
+</li>
 </ol>
 
                 
@@ -493,6 +477,12 @@ ReLU 在正区间），训练会更高效。</p></li>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/10/06/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/" title="损失函数的本质原理推导">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">损失函数的本质原理推导</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

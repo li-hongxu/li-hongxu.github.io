@@ -19,12 +19,12 @@
   <meta name="author" content="Hongxu Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签   数据分布  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义">
+    <meta name="description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义完模型后，开始编译模型，编译是定义“损">
 <meta property="og:type" content="article">
 <meta property="og:title" content="隐藏层的作用 — 以真假钞分类为例">
 <meta property="og:url" content="http://example.com/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签   数据分布  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义">
+<meta property="og:description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义完模型后，开始编译模型，编译是定义“损">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/2025-09-27-15-55-06.png">
 <meta property="og:image" content="http://example.com/img/2025-09-28-12-57-06.png">
@@ -34,8 +34,8 @@
 <meta property="article:modified_time" content="2025-09-30T08:10:23.014Z">
 <meta property="article:author" content="Hongxu Li">
 <meta property="article:tag" content="神经网络">
-<meta property="article:tag" content="隐藏层">
 <meta property="article:tag" content="激活函数">
+<meta property="article:tag" content="隐藏层">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/2025-09-27-15-55-06.png">
   
@@ -296,84 +296,79 @@
             
               <div class="markdown-body">
                 
-                <h1 id="隐藏层的作用-以真假钞分类为例">隐藏层的作用 —
-以真假钞分类为例</h1>
+                <h1>隐藏层的作用 — 以真假钞分类为例</h1>
 <p>什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。</p>
 <h2 id="真假钞分类">真假钞分类</h2>
 <p>我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签</p>
-<figure>
-<img src="/img/2025-09-27-15-55-06.png" srcset="/img/loading.gif" lazyload alt="数据分布" />
-<figcaption aria-hidden="true">数据分布</figcaption>
-</figure>
+<p><img src="/img/2025-09-27-15-55-06.png" srcset="/img/loading.gif" lazyload alt="数据分布"></p>
 <h3 id="构建单神经元神经网络">构建单神经元神经网络</h3>
 <p>这里，我们用Keras来构建一个序列模式神经网络。</p>
 <p>核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。</p>
 <p>定义完模型后，开始编译模型，编译是定义“损失函数+优化器+评估指标”的综合过程。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs routeros">model = Sequential()<br><br>model.<span class="hljs-built_in">add</span>( Dense(1,<br>            batch_input_shape=(None,2),<br>            <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;sigmoid&#x27;</span>)<br>)<br><br><span class="hljs-comment"># 1 是为神经网络添加新层，由于是单神经元，所以为1 </span><br><span class="hljs-comment"># 输入大小为（bathsize,2) 的张量，None表示batchsize可以任意大小</span><br><br><br>sgd = optimizers.SGD(lr =0.15)<br><br>model .compile(<br>            <span class="hljs-attribute">loss</span>=<span class="hljs-string">&#x27;binary_crossentropy&#x27;</span>,<br>             # 交叉熵损失函数，常用于分类模型<br>            <span class="hljs-attribute">optimizer</span>=sgd,<br>)<br><br>model.compline(<br>            loss = <span class="hljs-string">&#x27;binary_crossentropy&#x27;</span>, <br>            <span class="hljs-attribute">optimizer</span>=sgd,  <br>)<br><span class="hljs-comment"># 编译网络，结束模型定义</span><br><br>history = model.fit(X, Y, <span class="hljs-attribute">epochs</span>=400,<br>                        <span class="hljs-attribute">batch_size</span>=10,)<br><span class="hljs-comment"># 之所以叫history ，是因为 model.fit() 训练模型时，会返回一个 History 对象。</span><br><span class="hljs-comment"># 这个对象记录了训练过程中每个 epoch 的损失（loss）、准确率（accuracy）等指标的“历史”变化。</span><br><span class="hljs-comment"># 所以变量名通常用 history，表示“训练历史”</span><br><br><span class="hljs-comment"># 注意，这里的代码是基于TF2.0的，对于最新版本的TF，需要进行修改，包括batch_input_shape 应为input_shape，lr应为learning_rate等</span><br></code></pre></td></tr></table></figure>
 <h3 id="无隐藏层的训练结果">无隐藏层的训练结果</h3>
-<p>这里，我们使用分类模型决策边界可视化，来查看训练结果。
+<p>这里，我们使用分类模型决策边界可视化，来查看训练结果。<br>
 就是把模型是如何区分不同类别的那条分界线 画出来，让人直观地看到。</p>
-<figure>
-<img src="/img/2025-09-28-12-57-06.png" srcset="/img/loading.gif" lazyload alt="单神经元时的决策边界" />
-<figcaption aria-hidden="true">单神经元时的决策边界</figcaption>
-</figure>
+<p><img src="/img/2025-09-28-12-57-06.png" srcset="/img/loading.gif" lazyload alt="单神经元时的决策边界"></p>
 <blockquote>
-<p>背景颜色 = 模型预测某点是 类别 1 的概率。
-颜色深的地方，模型更确信这是 1； 颜色浅的地方，模型更确信这是 0。
+<p>背景颜色 = 模型预测某点是 类别 1 的概率。<br>
+颜色深的地方，模型更确信这是 1；<br>
+颜色浅的地方，模型更确信这是 0。<br>
 等高线（contourf）就是不同概率的分层。</p>
 </blockquote>
 <p>从左图可以看到，决策边界是直线。而实际情况是，真假钞票的边界并不是一条直线。</p>
 <p>这说明当前模型的预测能力差，并没有学习到真假钞票的特征。</p>
 <h3 id="添加隐藏层">添加隐藏层</h3>
 <p>这里我们使用一个包含8个神经元的隐藏层。还将输出节点从1更改为2，以获得真钞和假钞概率的两个输出。</p>
-<figure>
-<img src="/img/2025-09-28-13-20-21.png" srcset="/img/loading.gif" lazyload alt="加入隐藏层后的结果" />
-<figcaption aria-hidden="true">加入隐藏层后的结果</figcaption>
-</figure>
+<p><img src="/img/2025-09-28-13-20-21.png" srcset="/img/loading.gif" lazyload alt="加入隐藏层后的结果"></p>
 <p>可以看到，加入隐藏层后，决策边界变成了曲线。这说明模型已经学习到了真假钞票的特征。</p>
 <p>最后也来对比下隐藏层数量对于loss和准确率的影响</p>
-<figure>
-<img src="/img/2025-09-28-14-21-26.png" srcset="/img/loading.gif" lazyload
-alt="对比隐藏层数量对模型的影响" />
-<figcaption aria-hidden="true">对比隐藏层数量对模型的影响</figcaption>
-</figure>
-<p>可以发现，有隐藏层的模型在训练精度和训练 loss
-上明显优于无隐藏层模型。<br />
-随着隐藏层数量增加，模型训练达到理想精度的速度更快，训练曲线也更加平滑。然而，增加隐藏层并未显著提升最终准确率。<br />
-另外，训练 loss 在隐藏层数量为 1
-时达到最低，这表明仅增加隐藏层和神经元数量并不一定提高模型的最终性能，过多的参数可能导致优化更困难或过拟合。</p>
+<p><img src="/img/2025-09-28-14-21-26.png" srcset="/img/loading.gif" lazyload alt="对比隐藏层数量对模型的影响"></p>
+<p>可以发现，有隐藏层的模型在训练精度和训练 loss 上明显优于无隐藏层模型。<br>
+随着隐藏层数量增加，模型训练达到理想精度的速度更快，训练曲线也更加平滑。然而，增加隐藏层并未显著提升最终准确率。<br>
+另外，训练 loss 在隐藏层数量为 1 时达到最低，这表明仅增加隐藏层和神经元数量并不一定提高模型的最终性能，过多的参数可能导致优化更困难或过拟合。</p>
 <h3 id="为什么会这样">为什么会这样</h3>
 <p>之所以如此，是因为没有隐藏层时，输入直接连到输出，本质上就是一个逻辑回归，只能学习线性可分的决策边界。</p>
-<p>而当加入隐藏层时，它具有非线性激活函数（sigmoid, ReLU, tanh
-等），模型就不再是简单的线性变换，而是可以进行非线性映射。</p>
+<p>而当加入隐藏层时，它具有非线性激活函数（sigmoid, ReLU, tanh 等），模型就不再是简单的线性变换，而是可以进行非线性映射。</p>
 <p>这样模型可以把输入空间映射到一个更高维的特征空间，在这个空间里，原本线性不可分的数据可能就能分开。</p>
 <p>具体来说：</p>
 <ul>
-<li><p><em>对于没有激活函数的模型</em>：</p>
-<p>即便叠加再多的Dense，它依然是 <span
-class="math display"><em>f</em>(<em>x</em>) = <em>W</em><sub><em>k</em></sub>(<em>W</em><sub><em>k</em> − 1</sub>(…(<em>W</em><sub>1</sub><em>x</em> + <em>b</em><sub>1</sub>)…) + <em>b</em><sub><em>k</em> − 1</sub>) + <em>b</em><sub><em>k</em></sub></span></p>
-<p>实际上依然是： <span
-class="math display"><em>f</em>(<em>x</em>) = <em>W</em><sup>′</sup><em>x</em> + <em>b</em><sup>′</sup></span>
-依然是一个线性变换</p></li>
-<li><p><em>对于有激活函数的模型</em>：</p>
-<p>每一个神经元的输出为： <span
-class="math display"><em>h</em> = <em>σ</em>(<em>W</em><em>x</em> + <em>b</em>)</span></p>
-<p>其中，<span class="math inline"><em>σ</em></span> 是激活函数</p>
-<p>这样，每个每个神经元的输出便是非线性的，多个非线性叠加，就能产生更复杂的形状。</p></li>
+<li>
+<p><em>对于没有激活函数的模型</em>：</p>
+<p>即便叠加再多的Dense，它依然是</p>
+</li>
 </ul>
-<p>👉 通用近似定理 <span class="math display">$$
-F(x) = \sum_{j=1}^m \alpha_j \sigma(w_j^T x + b_j)
-$$</span> 对于任意连续函数 𝑓，只要激活函数是非线性的、可微的（比如
-sigmoid、ReLU），就存在一个单隐藏层神经网络可以逼近它</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>W</mi><mi>k</mi></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mo>…</mo><mo stretchy="false">(</mo><msub><mi>W</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>b</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>…</mo><mtext> </mtext><mo stretchy="false">)</mo><mo>+</mo><msub><mi>b</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>b</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">f(x) = W_k(W_{k-1}(\dots(W_1 x + b_1)\dots) + b_{k-1}) + b_k
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<pre><code class="hljs">实际上依然是：
+</code></pre>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>W</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>x</mi><mo>+</mo><msup><mi>b</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">f(x) = W&#x27; x + b&#x27;
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8852em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8019em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<pre><code class="hljs">依然是一个线性变换
+</code></pre>
+<ul>
+<li>
+<p><em>对于有激活函数的模型</em>：</p>
+<p>每一个神经元的输出为：</p>
+</li>
+</ul>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo>=</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>W</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h = \sigma(Wx + b)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span></span></p>
+<pre><code class="hljs">其中，$\sigma$ 是激活函数
+
+这样，每个每个神经元的输出便是非线性的，多个非线性叠加，就能产生更复杂的形状。
+</code></pre>
+<p>👉 通用近似定理</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><msub><mi>α</mi><mi>j</mi></msub><mi>σ</mi><mo stretchy="false">(</mo><msubsup><mi>w</mi><mi>j</mi><mi>T</mi></msubsup><mi>x</mi><mo>+</mo><msub><mi>b</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x) = \sum_{j=1}^m \alpha_j \sigma(w_j^T x + b_j)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.0652em;vertical-align:-1.4138em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4138em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>对于任意连续函数<br>
+𝑓，只要激活函数是非线性的、可微的（比如 sigmoid、ReLU），就存在一个单隐藏层神经网络可以逼近它</p>
 <h2 id="总结">总结</h2>
-<ol type="1">
+<ol>
 <li>隐藏层的作用是学习数据中的非线性特征。</li>
 <li>隐藏层的神经元越多，模型的表达能力越强，但同时也增加了模型的复杂度和计算量。</li>
 <li>隐藏层能发挥作用，主要是因为其中的激活函数</li>
-<li>在 Jupyter 中训练多个模型时，每个模型在编译前都应使用一个新的
-optimizer，否则会报错。原因是 Keras 在 model.compile()
-时，会将优化器绑定到模型的可训练变量上，并在内部记录变量状态（如动量、梯度累积），旧的
-optimizer 无法识别新模型的变量。</li>
+<li>在 Jupyter 中训练多个模型时，每个模型在编译前都应使用一个新的 optimizer，否则会报错。原因是 Keras 在 model.compile() 时，会将优化器绑定到模型的可训练变量上，并在内部记录变量状态（如动量、梯度累积），旧的 optimizer 无法识别新模型的变量。</li>
 </ol>
 
                 
@@ -410,9 +405,9 @@ optimizer 无法识别新模型的变量。</li>
       
         <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#神经网络</a>
       
-        <a href="/tags/%E9%9A%90%E8%97%8F%E5%B1%82/" class="print-no-link">#隐藏层</a>
-      
         <a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" class="print-no-link">#激活函数</a>
+      
+        <a href="/tags/%E9%9A%90%E8%97%8F%E5%B1%82/" class="print-no-link">#隐藏层</a>
       
     </div>
   
