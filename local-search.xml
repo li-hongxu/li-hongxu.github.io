@@ -4,27 +4,27 @@
   
   
   <entry>
-    <title>如何衡量模型输出的不确定性</title>
-    <link href="/2025/10/19/%E5%A6%82%E4%BD%95%E8%A1%A1%E9%87%8F%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7/"/>
-    <url>/2025/10/19/%E5%A6%82%E4%BD%95%E8%A1%A1%E9%87%8F%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7/</url>
+    <title>BUG修复：hexo命令失效</title>
+    <link href="/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/"/>
+    <url>/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/</url>
     
-    <content type="html"><![CDATA[<h2 id="什么是模型输出的不确定性">什么是模型输出的不确定性</h2><p>假设你是一个医生，模型根据病人情况，给出了一个预测结果: 病人有癌症。那么模型有多大把握认为他是有癌症的呢？这就是模型输出的不-定性。</p><h2 id="为什么要衡量模型输出的不确定性">为什么要衡量模型输出的不确定性</h2><p>传统的非贝叶斯模型，存在一个问题。</p><p>只有测试数据和训练数据很相似，才能有较好的预测效果。</p><p>比如对于一个在Imagenet上训练后的VGG16模型来说，当我们给他一个草原上的大象图片，他能认出这是大象。但是，如果给他一个在房屋内的大象，那么他认为这是一个马车。</p><p>这是因为训练集内的大象都是草原上的，而没有屋子内的，所以他的输出完全错误。</p><p>当我们深入观察它的这个判断过程，它是信誓旦旦的认为自己输出是正确的。</p><p>这是一个很严重的问题，因为它会导致模型的输出被错误地认为是正确的。在自动驾驶、医疗诊断等对安全性和可靠性要求极高的领域，这种“过于自信”的错误判断可能会带来灾难性的后果。</p><p>那么如何让模型告诉我们不确定性呢？</p><h2 id="如何衡量模型输出的不确定性">如何衡量模型输出的不确定性</h2><p>最直观的一个想法是：<strong>让网络对同一个东西多预测几次，然后看看这些预测结果的分布情况。如果结果都差不多，那就说明模型很有把握；如果结果忽高忽低、非常分散，那就说明模型自己也很“纠结”，不确定性很高。</strong></p><p>这个想法完全正确，而且正是当前最主流方法的核心。</p><h3 id="从“一个自信的专家”到“一个审慎的委员会”">从“一个自信的专家”到“一个审慎的委员会”</h3><p>我们可以把一个训练好的标准神经网络，想象成一个知识渊博但偶尔会过度自信的专家。你问他问题，他总会给你一个非常确定的答案，从不犹豫。</p><p>而我们想要的是一个“专家委员会”。当你向委员会提问时，每个成员都会给出自己的独立判断。</p><ul><li>如果所有专家都意见一致，那么我们可以对这个结论非常有信心。</li><li>如果专家们意见分歧很大，这就提醒我们，这个问题可能比较棘手，委员会对答案也没有十足的把握。</li></ul><p>关键问题是，我们如何用一个模型模拟出“专家委员会”的效果，而不需要真的去训练几十个不同的模型呢？</p><h3 id="答案就在-Dropout">答案就在 Dropout</h3><p>这里的关键就是神经网络中一个非常常见的功能：<strong>Dropout</strong>。</p><p>Dropout的本意是在<strong>训练</strong>时，随机地让一部分神经元“临时下线”，以防止模型过分依赖某些特定的神经元，从而达到防止过拟合的效果。</p><p>通常，在<strong>预测</strong>阶段，我们会关闭Dropout，让所有的神经元都参与工作，以输出一个最稳定、最确定的结果。</p><p>而<strong>蒙特卡洛 Dropout (MC Dropout)</strong> 的思想就是将计就计：<strong>在预测阶段，我们偏不关闭Dropout！</strong></p><p>当我们保持Dropout在预测时开启：</p><ol><li>把同一张图片输入网络，进行第一次预测。由于一部分神经元被随机“关闭”，我们得到了结果A。</li><li>再次把<strong>同一张图片</strong>输入网络，进行第二次预测。这一次，另一组随机的神经元被“关闭”，得到了一个可能与A略有不同的结果B。</li><li>重复这个过程 <code>T</code> 次（比如50次），就得到了 <code>T</code> 个不同的预测结果 <code>[结果A, 结果B, 结果C, ...]</code>。</li></ol><p>这样，我们就用一个模型，轻松地模拟出了一个拥有 <code>T</code> 位成员的“专家委员会”！</p><h3 id="解读“委员会”的投票结果">解读“委员会”的投票结果</h3><p>现在我们手里有了 <code>T</code> 个预测结果，解读它们就非常简单了：</p><ul><li><strong>最终预测值</strong>：我们可以取这 <code>T</code> 个结果的<strong>平均值</strong>，作为委员会最终的、最稳健的判断。</li><li><strong>不确定性</strong>：我们可以计算这 <code>T</code> 个结果的<strong>方差</strong>。<ul><li><strong>方差很小</strong>：说明所有专家给出的结论都非常相似。模型对这个结果<strong>非常有把握</strong>，不确定性<strong>低</strong>。</li><li><strong>方差很大</strong>：说明专家们意见分歧严重。模型对这个结果<strong>非常困惑</strong>，不确定性<strong>高</strong>。</li></ul></li></ul><h3 id="背后深刻的贝叶斯原理">背后深刻的贝叶斯原理</h3><p>你可能会问，这个“预测时也开头巾”的技巧，听起来像个“野路子”，它科学吗？</p><p>非常科学！这背后其实有深刻的贝叶斯理论支撑。</p><p>简单来说，贝叶斯神经网络（BNN）的核心思想是，模型的权重不应该是一个个确定的数值，而应该是一个个概率分布。一个完美的贝叶斯模型在预测时，会综合考虑由这个权重分布所产生的所有可能模型的预测结果。</p><p>但这件事在计算上是几乎不可能实现的。</p><p>而研究者们惊喜地发现，我们上面提到的 <strong>MC Dropout 方法，在数学上等价于对一个复杂的贝叶斯模型进行了一次近似的推理</strong>。</p><p>换句话说：<br>我们每一次开启 Dropout 进行的预测，都相当于从模型权重的“信念分布”中采样出了一个具体的“专家”，并让他做了一次判断。</p><p>因此，这个看似简单的技巧，其实是一种计算上极为高效，同时又具备坚实理论基础的贝叶斯近似方法。它让我们能够用最小的改动，就让传统的神经网络拥有了感知自身不确定性的宝贵能力。</p><h2 id="参考资料">参考资料</h2><ol><li>概率论与数理统计</li><li>概率深度学习</li></ol>]]></content>
+    <content type="html"><![CDATA[<h1>前沿</h1><p>之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题</p><h2 id="关键修复">关键修复</h2><p>在powershell内运行</p><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">$env:Path <span class="hljs-operator">+</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\3</span>4164<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\R</span>oaming<span class="hljs-char escape_">\n</span>pm&quot;</span><br></code></pre></td></tr></table></figure><h2 id="其余可借鉴命令">其余可借鉴命令</h2><ol><li>确认是否安装，及安装位置</li></ol><p>npm list -g hexo-cli</p><p>案例输出：</p><p>PS E:\项目\8. My blog\Hexo-blog\hexo&gt; npm list -g hexo-cli<br>C:\Users\34164\AppData\Roaming\npm<br>└── hexo-cli@4.3.2</p><ol start="2"><li>确认hexo是否可用</li></ol><p>hexo -v</p>]]></content>
     
     
     <categories>
       
-      <category>深度学习读书笔记</category>
+      <category>Web开发</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>神经网络</tag>
+      <tag>博客</tag>
       
-      <tag>贝叶斯估计</tag>
+      <tag>Hexo</tag>
       
-      <tag>不确定性</tag>
+      <tag>Bug</tag>
       
     </tags>
     
