@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/https:/li-hongxu.github.io/img/fluid.png">
-  <link rel="icon" href="/https:/li-hongxu.github.io/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,11 +22,11 @@
     <meta name="description" content="损失函数的优化之路：从闭式解到梯度下降 深度学习的一核心目标便是拟合，而如何衡量拟合的程度，便是通过损失函数来评价。那么这个过程是如何实现的呢？ 简单的线性函数 假设我们拟合的点有明显的线性关系，那么我们可以用 y&#x3D;ax+by &#x3D; ax + b y&#x3D;ax+b 来进行拟合，其中 aaa 和 bbb 是待求的参数。 那如何评价拟合的程度呢？可以通过拟合点距离我们函数的竖直距离来衡量。 很明显，当拟合效">
 <meta property="og:type" content="article">
 <meta property="og:title" content="损失函数的优化之路：从闭式解到梯度下降">
-<meta property="og:url" content="http://li-hongxu.github.io/https://li-hongxu.github.io/2025/10/06/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/index.html">
+<meta property="og:url" content="https://li-hongxu.github.io/2025/10/06/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/index.html">
 <meta property="og:site_name" content="白墨">
 <meta property="og:description" content="损失函数的优化之路：从闭式解到梯度下降 深度学习的一核心目标便是拟合，而如何衡量拟合的程度，便是通过损失函数来评价。那么这个过程是如何实现的呢？ 简单的线性函数 假设我们拟合的点有明显的线性关系，那么我们可以用 y&#x3D;ax+by &#x3D; ax + b y&#x3D;ax+b 来进行拟合，其中 aaa 和 bbb 是待求的参数。 那如何评价拟合的程度呢？可以通过拟合点距离我们函数的竖直距离来衡量。 很明显，当拟合效">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://li-hongxu.github.io/img/2025-10-06-10-24-33.png">
+<meta property="og:image" content="https://li-hongxu.github.io/img/2025-10-06-10-24-33.png">
 <meta property="article:published_time" content="2025-10-06T02:44:02.000Z">
 <meta property="article:modified_time" content="2025-10-06T03:15:08.226Z">
 <meta property="article:author" content="Hongxu Li">
@@ -34,7 +34,7 @@
 <meta property="article:tag" content="损失函数">
 <meta property="article:tag" content="梯度下降">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://li-hongxu.github.io/img/2025-10-06-10-24-33.png">
+<meta name="twitter:image" content="https://li-hongxu.github.io/img/2025-10-06-10-24-33.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -64,12 +64,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
 
 
-<link  rel="stylesheet" href="/https:/li-hongxu.github.io/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/https:/li-hongxu.github.io/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/https:/li-hongxu.github.io/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -78,15 +78,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"li-hongxu.github.io","root":"/https://li-hongxu.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/https://li-hongxu.github.io/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"li-hongxu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/https:/li-hongxu.github.io/js/utils.js" ></script>
-  <script  src="/https:/li-hongxu.github.io/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
   
@@ -114,7 +114,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/https:/li-hongxu.github.io/">
+    <a class="navbar-brand" href="/">
       <strong>白墨 · Blog</strong>
     </a>
 
@@ -133,7 +133,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -145,7 +145,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -157,7 +157,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -169,7 +169,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -181,7 +181,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -211,7 +211,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/https:/li-hongxu.github.io/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -321,7 +321,7 @@
 <p>这就是梯度下降法的核心思想，即每次沿着梯度的反方向更新参数，直至收敛。</p>
 <p>梯度表明在哪里下降最快，学习率表明下降的幅度是多少。</p>
 <p>随机生成一系列线性点，并用线性函数$ y = ax + b $拟合，损失函数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">E</mi></mrow><annotation encoding="application/x-tex">\mathrm{MSE}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm">MSE</span></span></span></span></span>，他的损失函数图形是这样。</p>
-<p><img src="/img/2025-10-06-10-24-33.png" srcset="/https://li-hongxu.github.io/img/loading.gif" lazyload alt="损失函数"></p>
+<p><img src="/img/2025-10-06-10-24-33.png" srcset="/img/loading.gif" lazyload alt="损失函数"></p>
 <p>看起来是碗状。让我们从<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a=3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">b=3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span>开始优化。</p>
 <p>其优化后的坐标为：</p>
 <p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>a</mi><mi>t</mi></msub><mo>−</mo><mi>η</mi><mtext> </mtext><msub><mi mathvariant="normal">∇</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">
@@ -363,7 +363,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
     
       <span class="category-chain">
         
-  <a href="/https:/li-hongxu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">深度学习读书笔记</a>
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">深度学习读书笔记</a>
   
   
 
@@ -378,11 +378,11 @@ a_{t+1} = a_t - \eta \, \nabla_a
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/https:/li-hongxu.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#神经网络</a>
+        <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#神经网络</a>
       
-        <a href="/https:/li-hongxu.github.io/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="print-no-link">#损失函数</a>
+        <a href="/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" class="print-no-link">#损失函数</a>
       
-        <a href="/https:/li-hongxu.github.io/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" class="print-no-link">#梯度下降</a>
+        <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" class="print-no-link">#梯度下降</a>
       
     </div>
   
@@ -395,7 +395,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
   <div class="license-box my-3">
     <div class="license-title">
       <div>损失函数的优化之路：从闭式解到梯度下降</div>
-      <div>http://li-hongxu.github.io/https://li-hongxu.github.io/2025/10/06/损失函数的本质原理推导/</div>
+      <div>https://li-hongxu.github.io/2025/10/06/损失函数的本质原理推导/</div>
     </div>
     <div class="license-meta">
       
@@ -451,7 +451,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/https:/li-hongxu.github.io/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/" title="BUG修复：hexo命令失效">
+                      <a href="/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/" title="BUG修复：hexo命令失效">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">BUG修复：hexo命令失效</span>
                         <span class="visible-mobile">上一篇</span>
@@ -461,7 +461,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
                   <article class="post-next col-6">
                     
                     
-                      <a href="/https:/li-hongxu.github.io/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/" title="为什么激活函数的改进可以提高模型性能？">
+                      <a href="/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/" title="为什么激活函数的改进可以提高模型性能？">
                         <span class="hidden-mobile">为什么激活函数的改进可以提高模型性能？</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -653,8 +653,8 @@ a_{t+1} = a_t - \eta \, \nabla_a
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/https:/li-hongxu.github.io/js/events.js" ></script>
-<script  src="/https:/li-hongxu.github.io/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -676,7 +676,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
 
 
   
-    <script  src="/https:/li-hongxu.github.io/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -818,7 +818,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
 
   <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
-  <script  src="/https:/li-hongxu.github.io/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
@@ -828,7 +828,7 @@ a_{t+1} = a_t - \eta \, \nabla_a
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/https:/li-hongxu.github.io/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   

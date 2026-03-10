@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/https:/li-hongxu.github.io/img/fluid.png">
-  <link rel="icon" href="/https:/li-hongxu.github.io/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,22 +22,22 @@
     <meta name="description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义完模型后，开始编译模型，编译是定义“损">
 <meta property="og:type" content="article">
 <meta property="og:title" content="隐藏层的作用 — 以真假钞分类为例">
-<meta property="og:url" content="http://li-hongxu.github.io/https://li-hongxu.github.io/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/index.html">
+<meta property="og:url" content="https://li-hongxu.github.io/2025/09/27/%E9%9A%90%E8%97%8F%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8%20%E2%80%94%20%E4%BB%A5%E7%9C%9F%E5%81%87%E9%92%9E%E5%88%86%E7%B1%BB%E4%B8%BA%E4%BE%8B/index.html">
 <meta property="og:site_name" content="白墨">
 <meta property="og:description" content="隐藏层的作用 — 以真假钞分类为例 什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。 真假钞分类 我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签  构建单神经元神经网络 这里，我们用Keras来构建一个序列模式神经网络。 核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。 定义完模型后，开始编译模型，编译是定义“损">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://li-hongxu.github.io/img/2025-09-27-15-55-06.png">
-<meta property="og:image" content="http://li-hongxu.github.io/img/2025-09-28-12-57-06.png">
-<meta property="og:image" content="http://li-hongxu.github.io/img/2025-09-28-13-20-21.png">
-<meta property="og:image" content="http://li-hongxu.github.io/img/2025-09-28-14-21-26.png">
+<meta property="og:image" content="https://li-hongxu.github.io/img/2025-09-27-15-55-06.png">
+<meta property="og:image" content="https://li-hongxu.github.io/img/2025-09-28-12-57-06.png">
+<meta property="og:image" content="https://li-hongxu.github.io/img/2025-09-28-13-20-21.png">
+<meta property="og:image" content="https://li-hongxu.github.io/img/2025-09-28-14-21-26.png">
 <meta property="article:published_time" content="2025-09-27T07:24:10.000Z">
 <meta property="article:modified_time" content="2025-09-30T08:10:23.014Z">
 <meta property="article:author" content="Hongxu Li">
 <meta property="article:tag" content="神经网络">
-<meta property="article:tag" content="隐藏层">
 <meta property="article:tag" content="激活函数">
+<meta property="article:tag" content="隐藏层">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://li-hongxu.github.io/img/2025-09-27-15-55-06.png">
+<meta name="twitter:image" content="https://li-hongxu.github.io/img/2025-09-27-15-55-06.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -67,12 +67,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
 
 
-<link  rel="stylesheet" href="/https:/li-hongxu.github.io/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/https:/li-hongxu.github.io/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/https:/li-hongxu.github.io/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -81,15 +81,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"li-hongxu.github.io","root":"/https://li-hongxu.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/https://li-hongxu.github.io/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"li-hongxu.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/https:/li-hongxu.github.io/js/utils.js" ></script>
-  <script  src="/https:/li-hongxu.github.io/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
   
@@ -117,7 +117,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/https:/li-hongxu.github.io/">
+    <a class="navbar-brand" href="/">
       <strong>白墨 · Blog</strong>
     </a>
 
@@ -136,7 +136,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -148,7 +148,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -160,7 +160,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -172,7 +172,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -184,7 +184,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/https:/li-hongxu.github.io/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -214,7 +214,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/https:/li-hongxu.github.io/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -300,7 +300,7 @@
 <p>什么是深度学习中的隐藏层，他扮演着什么作用？本文以真假钞分类为例，通过一个简单的例子来解释隐藏层的作用。</p>
 <h2 id="真假钞分类">真假钞分类</h2>
 <p>我们的数据集包括1372个样本，每个样本包括2个特征，和1个标签</p>
-<p><img src="/img/2025-09-27-15-55-06.png" srcset="/https://li-hongxu.github.io/img/loading.gif" lazyload alt="数据分布"></p>
+<p><img src="/img/2025-09-27-15-55-06.png" srcset="/img/loading.gif" lazyload alt="数据分布"></p>
 <h3 id="构建单神经元神经网络">构建单神经元神经网络</h3>
 <p>这里，我们用Keras来构建一个序列模式神经网络。</p>
 <p>核心流程并不复杂，就是定义一个神经网络，然后编译，最后训练。</p>
@@ -309,7 +309,7 @@
 <h3 id="无隐藏层的训练结果">无隐藏层的训练结果</h3>
 <p>这里，我们使用分类模型决策边界可视化，来查看训练结果。<br>
 就是把模型是如何区分不同类别的那条分界线 画出来，让人直观地看到。</p>
-<p><img src="/img/2025-09-28-12-57-06.png" srcset="/https://li-hongxu.github.io/img/loading.gif" lazyload alt="单神经元时的决策边界"></p>
+<p><img src="/img/2025-09-28-12-57-06.png" srcset="/img/loading.gif" lazyload alt="单神经元时的决策边界"></p>
 <blockquote>
 <p>背景颜色 = 模型预测某点是 类别 1 的概率。<br>
 颜色深的地方，模型更确信这是 1；<br>
@@ -320,10 +320,10 @@
 <p>这说明当前模型的预测能力差，并没有学习到真假钞票的特征。</p>
 <h3 id="添加隐藏层">添加隐藏层</h3>
 <p>这里我们使用一个包含8个神经元的隐藏层。还将输出节点从1更改为2，以获得真钞和假钞概率的两个输出。</p>
-<p><img src="/img/2025-09-28-13-20-21.png" srcset="/https://li-hongxu.github.io/img/loading.gif" lazyload alt="加入隐藏层后的结果"></p>
+<p><img src="/img/2025-09-28-13-20-21.png" srcset="/img/loading.gif" lazyload alt="加入隐藏层后的结果"></p>
 <p>可以看到，加入隐藏层后，决策边界变成了曲线。这说明模型已经学习到了真假钞票的特征。</p>
 <p>最后也来对比下隐藏层数量对于loss和准确率的影响</p>
-<p><img src="/img/2025-09-28-14-21-26.png" srcset="/https://li-hongxu.github.io/img/loading.gif" lazyload alt="对比隐藏层数量对模型的影响"></p>
+<p><img src="/img/2025-09-28-14-21-26.png" srcset="/img/loading.gif" lazyload alt="对比隐藏层数量对模型的影响"></p>
 <p>可以发现，有隐藏层的模型在训练精度和训练 loss 上明显优于无隐藏层模型。<br>
 随着隐藏层数量增加，模型训练达到理想精度的速度更快，训练曲线也更加平滑。然而，增加隐藏层并未显著提升最终准确率。<br>
 另外，训练 loss 在隐藏层数量为 1 时达到最低，这表明仅增加隐藏层和神经元数量并不一定提高模型的最终性能，过多的参数可能导致优化更困难或过拟合。</p>
@@ -388,7 +388,7 @@
     
       <span class="category-chain">
         
-  <a href="/https:/li-hongxu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">深度学习读书笔记</a>
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">深度学习读书笔记</a>
   
   
 
@@ -403,11 +403,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/https:/li-hongxu.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#神经网络</a>
+        <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#神经网络</a>
       
-        <a href="/https:/li-hongxu.github.io/tags/%E9%9A%90%E8%97%8F%E5%B1%82/" class="print-no-link">#隐藏层</a>
+        <a href="/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" class="print-no-link">#激活函数</a>
       
-        <a href="/https:/li-hongxu.github.io/tags/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" class="print-no-link">#激活函数</a>
+        <a href="/tags/%E9%9A%90%E8%97%8F%E5%B1%82/" class="print-no-link">#隐藏层</a>
       
     </div>
   
@@ -420,7 +420,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>隐藏层的作用 — 以真假钞分类为例</div>
-      <div>http://li-hongxu.github.io/https://li-hongxu.github.io/2025/09/27/隐藏层的作用 — 以真假钞分类为例/</div>
+      <div>https://li-hongxu.github.io/2025/09/27/隐藏层的作用 — 以真假钞分类为例/</div>
     </div>
     <div class="license-meta">
       
@@ -476,7 +476,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/https:/li-hongxu.github.io/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/" title="为什么激活函数的改进可以提高模型性能？">
+                      <a href="/2025/10/01/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E6%94%B9%E8%BF%9B%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%EF%BC%9F/" title="为什么激活函数的改进可以提高模型性能？">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">为什么激活函数的改进可以提高模型性能？</span>
                         <span class="visible-mobile">上一篇</span>
@@ -486,7 +486,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/https:/li-hongxu.github.io/2025/09/25/hello-world/" title="Hello World">
+                      <a href="/2025/09/25/hello-world/" title="Hello World">
                         <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -678,8 +678,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/https:/li-hongxu.github.io/js/events.js" ></script>
-<script  src="/https:/li-hongxu.github.io/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -701,7 +701,7 @@
 
 
   
-    <script  src="/https:/li-hongxu.github.io/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -843,7 +843,7 @@
 
   <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
-  <script  src="/https:/li-hongxu.github.io/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
@@ -853,7 +853,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/https:/li-hongxu.github.io/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
