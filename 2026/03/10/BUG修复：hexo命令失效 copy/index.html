@@ -19,26 +19,26 @@
   <meta name="author" content="Hongxu Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前沿 之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题 关键修复 在powershell内运行 1$env:Path +&#x3D; &quot;;C:\Users\34164\AppData\Roaming\npm&quot; 其余可借鉴命令  确认是否安装，及安装位置  npm list -g hexo-cli 案例输出： PS E:\项目\8. My blog\Hexo-blog">
+    <meta name="description" content="前言 之前Docker镜像失效了，下载速度很慢，所以需要更换镜像。 Docker的镜像更换位置，在Docker Desktop -&gt; setting -&gt; Docker Engine 关键修复 替换全文为 123456789101112131415161718&#123;  &quot;builder&quot;: &#123;    &quot;gc&quot;: &#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BUG修复：hexo命令失效">
-<meta property="og:url" content="http://li-hongxu.github.io/https://li-hongxu.github.io/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/index.html">
+<meta property="og:title" content="BUG修复：Docker镜像失效">
+<meta property="og:url" content="http://li-hongxu.github.io/https://li-hongxu.github.io/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88%20copy/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="前沿 之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题 关键修复 在powershell内运行 1$env:Path +&#x3D; &quot;;C:\Users\34164\AppData\Roaming\npm&quot; 其余可借鉴命令  确认是否安装，及安装位置  npm list -g hexo-cli 案例输出： PS E:\项目\8. My blog\Hexo-blog">
+<meta property="og:description" content="前言 之前Docker镜像失效了，下载速度很慢，所以需要更换镜像。 Docker的镜像更换位置，在Docker Desktop -&gt; setting -&gt; Docker Engine 关键修复 替换全文为 123456789101112131415161718&#123;  &quot;builder&quot;: &#123;    &quot;gc&quot;: &#123;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-01-31T15:41:22.000Z">
-<meta property="article:modified_time" content="2026-01-31T16:18:15.071Z">
+<meta property="article:published_time" content="2026-03-09T19:33:00.000Z">
+<meta property="article:modified_time" content="2026-03-10T07:36:24.307Z">
 <meta property="article:author" content="Hongxu Li">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="镜像">
 <meta property="article:tag" content="Bug">
-<meta property="article:tag" content="博客">
-<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>BUG修复：hexo命令失效 - 白墨</title>
+  <title>BUG修复：Docker镜像失效 - 白墨</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="BUG修复：hexo命令失效"></span>
+            <span id="subtitle" data-typed-text="BUG修复：Docker镜像失效"></span>
           
         </div>
 
@@ -226,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-31 23:41" pubdate>
-          2026年1月31日 晚上
+        <time datetime="2026-03-10 03:33" pubdate>
+          2026年3月10日 凌晨
         </time>
       </span>
     
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          102 字
+          203 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -286,29 +286,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">BUG修复：hexo命令失效</h1>
+            <h1 id="seo-header">BUG修复：Docker镜像失效</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>前沿</h1>
-<p>之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题</p>
+                <h1>前言</h1>
+<p>之前Docker镜像失效了，下载速度很慢，所以需要更换镜像。</p>
+<p>Docker的镜像更换位置，在Docker Desktop -&gt; setting -&gt; Docker Engine</p>
 <h2 id="关键修复">关键修复</h2>
-<p>在powershell内运行</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">$env:Path <span class="hljs-operator">+</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\3</span>4164<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\R</span>oaming<span class="hljs-char escape_">\n</span>pm&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="其余可借鉴命令">其余可借鉴命令</h2>
+<p>替换全文为</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;builder&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;gc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;defaultKeepStorage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;20GB&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;experimental&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;features&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;buildkit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;registry-mirrors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-string">&quot;https://docker.1ms.run&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;https://dockerproxy.com&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-string">&quot;https://hub.rat.dev&quot;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="其余可借鉴">其余可借鉴</h2>
 <ol>
-<li>确认是否安装，及安装位置</li>
+<li>
+<p>docker ps 展示所有运行容器</p>
+</li>
+<li>
+<p>一些其他公开的镜像地址</p>
+</li>
 </ol>
-<p>npm list -g hexo-cli</p>
-<p>案例输出：</p>
-<p>PS E:\项目\8. My blog\Hexo-blog\hexo&gt; npm list -g hexo-cli<br>
-C:\Users\34164\AppData\Roaming\npm<br>
-└── hexo-cli@4.3.2</p>
-<ol start="2">
-<li>确认hexo是否可用</li>
+<p>科大镜像：<a target="_blank" rel="noopener" href="https://docker.mirrors.ustc.edu.cn/">https://docker.mirrors.ustc.edu.cn/</a><br>
+网易：<a target="_blank" rel="noopener" href="https://hub-mirror.c.163.com/">https://hub-mirror.c.163.com/</a><br>
+阿里云：https://&lt;你的ID&gt;.mirror.aliyuncs.com （阿里云镜像获取地址：<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors%EF%BC%8C%EF%BC%89">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors，）</a><br>
+七牛云加速器：<a target="_blank" rel="noopener" href="https://reg-mirror.qiniu.com">https://reg-mirror.qiniu.com</a></p>
+<ol start="3">
+<li>docker info 检查docker配置信息，镜像信息在最后面展示</li>
 </ol>
-<p>hexo -v</p>
 
                 
               </div>
@@ -342,11 +346,11 @@ C:\Users\34164\AppData\Roaming\npm<br>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/https:/li-hongxu.github.io/tags/Docker/" class="print-no-link">#Docker</a>
+      
+        <a href="/https:/li-hongxu.github.io/tags/%E9%95%9C%E5%83%8F/" class="print-no-link">#镜像</a>
+      
         <a href="/https:/li-hongxu.github.io/tags/Bug/" class="print-no-link">#Bug</a>
-      
-        <a href="/https:/li-hongxu.github.io/tags/%E5%8D%9A%E5%AE%A2/" class="print-no-link">#博客</a>
-      
-        <a href="/https:/li-hongxu.github.io/tags/Hexo/" class="print-no-link">#Hexo</a>
       
     </div>
   
@@ -358,8 +362,8 @@ C:\Users\34164\AppData\Roaming\npm<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>BUG修复：hexo命令失效</div>
-      <div>http://li-hongxu.github.io/https://li-hongxu.github.io/2026/01/31/BUG修复：hexo命令失效/</div>
+      <div>BUG修复：Docker镜像失效</div>
+      <div>http://li-hongxu.github.io/https://li-hongxu.github.io/2026/03/10/BUG修复：hexo命令失效 copy/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +375,7 @@ C:\Users\34164\AppData\Roaming\npm<br>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月31日</div>
+          <div>2026年3月10日</div>
         </div>
       
       
@@ -415,18 +419,12 @@ C:\Users\34164\AppData\Roaming\npm<br>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/https:/li-hongxu.github.io/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88%20copy/" title="BUG修复：Docker镜像失效">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">BUG修复：Docker镜像失效</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/https:/li-hongxu.github.io/2025/10/06/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/" title="损失函数的优化之路：从闭式解到梯度下降">
-                        <span class="hidden-mobile">损失函数的优化之路：从闭式解到梯度下降</span>
+                      <a href="/https:/li-hongxu.github.io/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/" title="BUG修复：hexo命令失效">
+                        <span class="hidden-mobile">BUG修复：hexo命令失效</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
