@@ -240,13 +240,111 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88%20copy/" target="_self">
+        <a href="/2026/03/13/Bug%E4%BF%AE%E5%A4%8D%EF%BC%9AFastapi%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3%E6%89%93%E5%BC%80%E6%98%AF%E7%A9%BA%E7%99%BD/" target="_self">
+          Bug修复：Fastapi生成文档打开是空白
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/03/13/Bug%E4%BF%AE%E5%A4%8D%EF%BC%9AFastapi%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3%E6%89%93%E5%BC%80%E6%98%AF%E7%A9%BA%E7%99%BD/" target="_self">
+        <div>
+          前言 Fastapi生成的文档由于用了国外CDN，所以国内访问有时会空白。 解决方式 引入fastAPI-offline 1.7.6，链接是 https://pypi.org/project/fastapi-offline/ 关键替换 12345678from fastapi import FastAPIapp = FastAPI()@app.get(&quot;/&quot;)async def
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-03-13 17:53" pubdate>
+              2026-03-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/" class="category-chain-item">Web开发笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Bug/">#Bug</a>
+            
+              <a href="/tags/Web/">#Web</a>
+            
+              <a href="/tags/Fastapi/">#Fastapi</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/03/12/post/" target="_self">
+          web请求配置梳理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/03/12/post/" target="_self">
+        <div>
+          引言 之前配网站时，总出现证书之类问题，没有一个最小可行的配置模板，这里梳理一个个人的模板。 整体架构 用户浏览器 │ ▼ Cloudflare  (DNS + HTTPS + CDN + 防护) │ ├───────────────┐ │               │ ▼               ▼ Vercel            阿里云服务器 (前端)              (A
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-03-12 11:56" pubdate>
+              2026-03-12
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9ADocker%E9%95%9C%E5%83%8F%E5%A4%B1%E6%95%88/" target="_self">
           BUG修复：Docker镜像失效
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88%20copy/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9ADocker%E9%95%9C%E5%83%8F%E5%A4%B1%E6%95%88/" target="_self">
         <div>
           前言 之前Docker镜像失效了，下载速度很慢，所以需要更换镜像。 Docker的镜像更换位置，在Docker Desktop -&gt; setting -&gt; Docker Engine 关键修复 替换全文为 123456789101112131415161718&#123;  &quot;builder&quot;: &#123;    &quot;gc&quot;: &#123;
         </div>

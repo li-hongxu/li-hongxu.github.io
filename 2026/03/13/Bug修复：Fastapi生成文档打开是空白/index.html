@@ -19,26 +19,26 @@
   <meta name="author" content="Hongxu Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前沿 之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题 关键修复 在powershell内运行 1$env:Path +&#x3D; &quot;;C:\Users\34164\AppData\Roaming\npm&quot; 其余可借鉴命令  确认是否安装，及安装位置  npm list -g hexo-cli 案例输出： PS E:\项目\8. My blog\Hexo-blog">
+    <meta name="description" content="前言 Fastapi生成的文档由于用了国外CDN，所以国内访问有时会空白。 解决方式 引入fastAPI-offline 1.7.6，链接是 https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;fastapi-offline&#x2F; 关键替换 12345678from fastapi import FastAPIapp &#x3D; FastAPI()@app.get(&quot;&#x2F;&quot;)async def">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BUG修复：hexo命令失效">
-<meta property="og:url" content="https://li-hongxu.github.io/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/index.html">
+<meta property="og:title" content="Bug修复：Fastapi生成文档打开是空白">
+<meta property="og:url" content="https://li-hongxu.github.io/2026/03/13/Bug%E4%BF%AE%E5%A4%8D%EF%BC%9AFastapi%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3%E6%89%93%E5%BC%80%E6%98%AF%E7%A9%BA%E7%99%BD/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="前沿 之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题 关键修复 在powershell内运行 1$env:Path +&#x3D; &quot;;C:\Users\34164\AppData\Roaming\npm&quot; 其余可借鉴命令  确认是否安装，及安装位置  npm list -g hexo-cli 案例输出： PS E:\项目\8. My blog\Hexo-blog">
+<meta property="og:description" content="前言 Fastapi生成的文档由于用了国外CDN，所以国内访问有时会空白。 解决方式 引入fastAPI-offline 1.7.6，链接是 https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;fastapi-offline&#x2F; 关键替换 12345678from fastapi import FastAPIapp &#x3D; FastAPI()@app.get(&quot;&#x2F;&quot;)async def">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-01-31T15:41:22.000Z">
-<meta property="article:modified_time" content="2026-01-31T16:18:15.071Z">
+<meta property="article:published_time" content="2026-03-13T09:53:40.000Z">
+<meta property="article:modified_time" content="2026-03-13T09:58:07.350Z">
 <meta property="article:author" content="Hongxu Li">
 <meta property="article:tag" content="Bug">
-<meta property="article:tag" content="博客">
-<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="Fastapi">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>BUG修复：hexo命令失效 - 白墨</title>
+  <title>Bug修复：Fastapi生成文档打开是空白 - 白墨</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="BUG修复：hexo命令失效"></span>
+            <span id="subtitle" data-typed-text="Bug修复：Fastapi生成文档打开是空白"></span>
           
         </div>
 
@@ -226,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-31 23:41" pubdate>
-          2026年1月31日 晚上
+        <time datetime="2026-03-13 17:53" pubdate>
+          2026年3月13日 下午
         </time>
       </span>
     
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          102 字
+          82 字
         
       </span>
     
@@ -286,30 +286,20 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">BUG修复：hexo命令失效</h1>
+            <h1 id="seo-header">Bug修复：Fastapi生成文档打开是空白</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>前沿</h1>
-<p>之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题</p>
-<h2 id="关键修复">关键修复</h2>
-<p>在powershell内运行</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">$env:Path <span class="hljs-operator">+</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\3</span>4164<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\R</span>oaming<span class="hljs-char escape_">\n</span>pm&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="其余可借鉴命令">其余可借鉴命令</h2>
-<ol>
-<li>确认是否安装，及安装位置</li>
-</ol>
-<p>npm list -g hexo-cli</p>
-<p>案例输出：</p>
-<p>PS E:\项目\8. My blog\Hexo-blog\hexo&gt; npm list -g hexo-cli<br>
-C:\Users\34164\AppData\Roaming\npm<br>
-└── hexo-cli@4.3.2</p>
-<ol start="2">
-<li>确认hexo是否可用</li>
-</ol>
-<p>hexo -v</p>
-
+                <h2 id="前言">前言</h2>
+<p>Fastapi生成的文档由于用了国外CDN，所以国内访问有时会空白。</p>
+<h2 id="解决方式">解决方式</h2>
+<p>引入fastAPI-offline 1.7.6，链接是</p>
+<p><a target="_blank" rel="noopener" href="https://pypi.org/project/fastapi-offline/">https://pypi.org/project/fastapi-offline/</a></p>
+<h2 id="关键替换">关键替换</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">root</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Hello World&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>换为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi_offline <span class="hljs-keyword">import</span> FastAPIOffline<br><br>app = FastAPIOffline()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">root</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Hello World&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -344,9 +334,9 @@ C:\Users\34164\AppData\Roaming\npm<br>
       
         <a href="/tags/Bug/" class="print-no-link">#Bug</a>
       
-        <a href="/tags/%E5%8D%9A%E5%AE%A2/" class="print-no-link">#博客</a>
+        <a href="/tags/Web/" class="print-no-link">#Web</a>
       
-        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
+        <a href="/tags/Fastapi/" class="print-no-link">#Fastapi</a>
       
     </div>
   
@@ -358,8 +348,8 @@ C:\Users\34164\AppData\Roaming\npm<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>BUG修复：hexo命令失效</div>
-      <div>https://li-hongxu.github.io/2026/01/31/BUG修复：hexo命令失效/</div>
+      <div>Bug修复：Fastapi生成文档打开是空白</div>
+      <div>https://li-hongxu.github.io/2026/03/13/Bug修复：Fastapi生成文档打开是空白/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +361,7 @@ C:\Users\34164\AppData\Roaming\npm<br>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月31日</div>
+          <div>2026年3月13日</div>
         </div>
       
       
@@ -415,18 +405,12 @@ C:\Users\34164\AppData\Roaming\npm<br>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9ADocker%E9%95%9C%E5%83%8F%E5%A4%B1%E6%95%88/" title="BUG修复：Docker镜像失效">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">BUG修复：Docker镜像失效</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/10/06/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/" title="损失函数的优化之路：从闭式解到梯度下降">
-                        <span class="hidden-mobile">损失函数的优化之路：从闭式解到梯度下降</span>
+                      <a href="/2026/03/12/post/" title="web请求配置梳理">
+                        <span class="hidden-mobile">web请求配置梳理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
