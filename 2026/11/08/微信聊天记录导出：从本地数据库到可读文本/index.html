@@ -19,28 +19,27 @@
   <meta name="author" content="Hongxu Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 有时我们需要把自己的微信聊天记录整理成可搜索、可备份、可进一步分析的文件，例如回顾项目沟通、生成个人聊天统计，或迁移到笔记系统。 这篇文章记录一次在 Windows 上完成导出的流程：从电脑版微信的本地数据中取得本人账号的聊天数据库，解密后读取 SQLite 数据，再导出为 TXT、CSV 或 HTML。不同微信版本和工具的参数会变化，但整体思路是一致的。  仅处理自己有权访问的数据，并妥善">
+    <meta name="description" content="这次实际使用的工具：WeChatMsg-4x 这次导出聊天记录，用的不是 wechat-decrypt，而是 WeChatMsg-4x。它是一个面向 Windows PC 微信 4.0 &#x2F; 4.1 的本地聊天记录查看、解密与导出项目；本次我们就是通过它读取本人已登录电脑版微信的本地数据，并导出可阅读的聊天记录。  本文只记录处理自己有权访问的账号和数据。数据库密钥、解密数据库、导出的 HTML&#x2F;C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微信聊天记录导出：从本地数据库到可读文本">
+<meta property="og:title" content="使用 WeChatMsg-4x 导出电脑版微信聊天记录">
 <meta property="og:url" content="https://li-hongxu.github.io/2026/11/08/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%AF%BC%E5%87%BA%EF%BC%9A%E4%BB%8E%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%B0%E5%8F%AF%E8%AF%BB%E6%96%87%E6%9C%AC/index.html">
 <meta property="og:site_name" content="白墨">
-<meta property="og:description" content="前言 有时我们需要把自己的微信聊天记录整理成可搜索、可备份、可进一步分析的文件，例如回顾项目沟通、生成个人聊天统计，或迁移到笔记系统。 这篇文章记录一次在 Windows 上完成导出的流程：从电脑版微信的本地数据中取得本人账号的聊天数据库，解密后读取 SQLite 数据，再导出为 TXT、CSV 或 HTML。不同微信版本和工具的参数会变化，但整体思路是一致的。  仅处理自己有权访问的数据，并妥善">
+<meta property="og:description" content="这次实际使用的工具：WeChatMsg-4x 这次导出聊天记录，用的不是 wechat-decrypt，而是 WeChatMsg-4x。它是一个面向 Windows PC 微信 4.0 &#x2F; 4.1 的本地聊天记录查看、解密与导出项目；本次我们就是通过它读取本人已登录电脑版微信的本地数据，并导出可阅读的聊天记录。  本文只记录处理自己有权访问的账号和数据。数据库密钥、解密数据库、导出的 HTML&#x2F;C">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-11-08T02:30:00.000Z">
-<meta property="article:modified_time" content="2026-11-08T08:59:01.978Z">
+<meta property="article:modified_time" content="2026-11-08T09:02:59.155Z">
 <meta property="article:author" content="Hongxu Li">
 <meta property="article:tag" content="微信">
 <meta property="article:tag" content="数据导出">
-<meta property="article:tag" content="SQLite">
-<meta property="article:tag" content="Python">
 <meta property="article:tag" content="隐私">
+<meta property="article:tag" content="WeChatMsg-4x">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>微信聊天记录导出：从本地数据库到可读文本 - 白墨</title>
+  <title>使用 WeChatMsg-4x 导出电脑版微信聊天记录 - 白墨</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="微信聊天记录导出：从本地数据库到可读文本"></span>
+            <span id="subtitle" data-typed-text="使用 WeChatMsg-4x 导出电脑版微信聊天记录"></span>
           
         </div>
 
@@ -240,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.3k 字
         
       </span>
     
@@ -251,7 +250,7 @@
         
         
         
-          18 分钟
+          11 分钟
         
       </span>
     
@@ -288,116 +287,98 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">微信聊天记录导出：从本地数据库到可读文本</h1>
+            <h1 id="seo-header">使用 WeChatMsg-4x 导出电脑版微信聊天记录</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>前言</h1>
-<p>有时我们需要把自己的微信聊天记录整理成可搜索、可备份、可进一步分析的文件，例如回顾项目沟通、生成个人聊天统计，或迁移到笔记系统。</p>
-<p>这篇文章记录一次在 Windows 上完成导出的流程：从电脑版微信的本地数据中取得<strong>本人账号</strong>的聊天数据库，解密后读取 SQLite 数据，再导出为 TXT、CSV 或 HTML。不同微信版本和工具的参数会变化，但整体思路是一致的。</p>
+                <h1>这次实际使用的工具：WeChatMsg-4x</h1>
+<p>这次导出聊天记录，用的不是 <code>wechat-decrypt</code>，而是 <a target="_blank" rel="noopener" href="https://github.com/chenanhan230-del/WeChatMsg-4x"><strong>WeChatMsg-4x</strong></a>。它是一个面向 <strong>Windows PC 微信 4.0 / 4.1</strong> 的本地聊天记录查看、解密与导出项目；本次我们就是通过它读取本人已登录电脑版微信的本地数据，并导出可阅读的聊天记录。</p>
 <blockquote>
-<p>仅处理自己有权访问的数据，并妥善保护导出文件。聊天记录通常包含姓名、联系方式、地址、工作与隐私内容；不要把原始数据库、密钥、wxid 或完整导出文件上传到公开仓库或网盘。</p>
+<p>本文只记录处理自己有权访问的账号和数据。数据库密钥、解密数据库、导出的 HTML/CSV/TXT 都含有高度敏感信息，绝不能上传、公开分享或提交到 Git。</p>
 </blockquote>
-<h2 id="准备工作">准备工作</h2>
-<p>需要准备：</p>
+<h2 id="WeChatMsg-4x-能做什么">WeChatMsg-4x 能做什么</h2>
+<p>它在本机完成数据处理，主要能力包括：</p>
+<ul>
+<li>适配新版 PC 微信 4.x；</li>
+<li>检测正在运行且已登录的微信；</li>
+<li>提取本地聊天数据库所需的密钥并解密；</li>
+<li>在本地还原和浏览聊天记录；</li>
+<li>导出 HTML、CSV、TXT 等记录，HTML 还可带图片、表情、语音和视频等媒体。</li>
+</ul>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/chenanhan230-del/WeChatMsg-4x">https://github.com/chenanhan230-del/WeChatMsg-4x</a></p>
+<h2 id="使用前准备">使用前准备</h2>
 <ol>
-<li>Windows 电脑，且电脑版微信保持登录。</li>
-<li>管理员权限启动终端或支持脚本执行的工具；有些工具需要从微信进程内存中读取数据库密钥。</li>
-<li>本次实际使用的开源项目 <a target="_blank" rel="noopener" href="https://github.com/chenanhan230-del/WeChatMsg-4x">WeChatMsg-4x</a>，以及 Python 3.10 或更高版本的环境。</li>
-<li>足够的磁盘空间。聊天图片、语音与数据库副本可能占用数 GB。</li>
+<li>使用 Windows，并保持电脑版微信处于登录状态。</li>
+<li>建议以管理员身份运行终端或图形界面；否则可能无法检测微信进程或读取密钥。</li>
+<li>准备 Python 3.10+，或直接使用项目 Release 提供的可执行文件。</li>
+<li>如手机端的历史消息尚未同步到电脑，先在手机微信中使用“聊天记录迁移与备份 → 迁移到电脑微信”，完成后重启电脑版微信。</li>
 </ol>
-<p>建议先关闭自动同步、退出不相关的账号，并把导出目录放在本机加密磁盘或受访问控制的位置。</p>
-<h2 id="流程概览">流程概览</h2>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">电脑版微信保持登录<br>        ↓<br>定位本地数据并复制（不要直接改原文件）<br>        ↓<br>提取数据库密钥、解密数据库<br>        ↓<br>SQLite 读取消息表与联系人映射<br>        ↓<br>按联系人筛选、清洗并导出 TXT / CSV / HTML<br>        ↓<br>检查敏感信息，安全保存或删除临时文件<br></code></pre></td></tr></table></figure>
-<h2 id="1-保持电脑版微信登录">1. 保持电脑版微信登录</h2>
-<p>先启动并登录电脑版微信，不要在导出中途退出。Windows 下常用的解密工具会从正在运行的微信进程中取得数据库密钥；如果微信未登录，通常会报找不到进程、密钥为空或无法解密。</p>
-<p>如果工具提示权限不足，先完全退出工具，以管理员身份重新打开终端/客户端，再执行一次。不要为了方便关闭系统安全防护或下载来源不明的破解程序。</p>
-<h2 id="2-使用-WeChatMsg-4x-解密并导出">2. 使用 WeChatMsg-4x 解密并导出</h2>
-<p>本次用的是 <a target="_blank" rel="noopener" href="https://github.com/chenanhan230-del/WeChatMsg-4x">WeChatMsg-4x</a>。它是 <code>LC044/WeChatMsg</code> 的适配版本，增加了对 PC 微信 4.x / 4.1 的支持；可以通过图形界面 <code>python main.py</code> 操作，也可以使用命令行。</p>
-<p>在项目目录安装依赖后，微信保持登录时可按下面的顺序执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br>python -m wx4 info                 <span class="hljs-comment"># 检测微信进程、数据目录与账号</span><br>python -m wx4 key                  <span class="hljs-comment"># 提取数据库密钥</span><br>python -m wx4 decrypt              <span class="hljs-comment"># 解密数据库</span><br>python -m wx4 sessions             <span class="hljs-comment"># 列出会话，确认目标联系人</span><br>python -m wx4 <span class="hljs-built_in">export</span> -f html       <span class="hljs-comment"># 导出 HTML</span><br></code></pre></td></tr></table></figure>
-<p>也可以使用一键命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m wx4 all                  <span class="hljs-comment"># 取密钥、解密并导出</span><br>python -m wx4 all -f html --media  <span class="hljs-comment"># 同时导出媒体文件</span><br></code></pre></td></tr></table></figure>
-<p>通常的操作顺序是：</p>
+<p>不要直接修改微信原始数据目录。WeChatMsg-4x 会将处理结果保存在自己的工作目录中。</p>
+<h2 id="实际操作流程">实际操作流程</h2>
+<h3 id="方式一：图形界面">方式一：图形界面</h3>
+<p>这是最适合日常使用的方式。进入 WeChatMsg-4x 项目目录后运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python main.py<br></code></pre></td></tr></table></figure>
+<p>程序会自动识别微信 4.x / 3.x。对于微信 4.x，确认电脑版微信已登录后，按照界面提示获取信息、读取密钥、开始解密；之后选择联系人并执行导出。</p>
+<h3 id="方式二：命令行（微信-4-x）">方式二：命令行（微信 4.x）</h3>
+<p>先安装项目依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
+<p>本次所用版本提供 <code>wx4</code> 命令模块，推荐按以下顺序运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m wx4 info            <span class="hljs-comment"># 检测微信进程、数据目录和账号</span><br>python -m wx4 key             <span class="hljs-comment"># 提取数据库密钥</span><br>python -m wx4 decrypt         <span class="hljs-comment"># 解密聊天数据库</span><br>python -m wx4 sessions        <span class="hljs-comment"># 列出会话，确认联系人</span><br>python -m wx4 <span class="hljs-built_in">export</span> -f html  <span class="hljs-comment"># 导出为 HTML</span><br></code></pre></td></tr></table></figure>
+<p>确认环境正常后，也可以一键执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m wx4 all<br></code></pre></td></tr></table></figure>
+<p>若需要同时带出图片、语音、视频等本地媒体文件，可使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python -m wx4 all -f html --media<br></code></pre></td></tr></table></figure>
+<h2 id="导出结果在哪里">导出结果在哪里</h2>
+<p>WeChatMsg-4x 的敏感产物默认位于项目目录下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">app/DataBase/<br>├── decrypted/   # 解密后的完整聊天数据库<br>└── export/      # 导出的聊天记录与媒体文件<br></code></pre></td></tr></table></figure>
+<p>导出 HTML 后，打开 <code>app/DataBase/export/index.html</code> 即可在浏览器中查看。需要表格处理或进一步统计时，选择导出 CSV；需要全文阅读、归档或交给其他文本工具处理时，选择 TXT。</p>
+<h2 id="导出后先做三项检查">导出后先做三项检查</h2>
 <ol>
-<li>让工具检测正在运行的微信进程；</li>
-<li>读取数据库密钥；</li>
-<li>复制并解密消息数据库到单独的 <code>app/DataBase/decrypted</code> 目录；</li>
-<li>在 <code>app/DataBase/export</code> 中打开 <code>index.html</code> 浏览导出结果，或继续导出 CSV、TXT。</li>
+<li>用少量已知消息确认联系人、日期和“我/对方”方向正确；</li>
+<li>检查中文、emoji、图片和换行是否正常；</li>
+<li>再核对导出文件中没有混入不需要的群聊或其他联系人。</li>
 </ol>
-<p>不要在原始微信数据目录上做覆盖写入。正确的工具会先复制数据库，之后只处理副本；这既避免损坏微信数据，也方便在失败后重新尝试。</p>
-<p>解密完成后的目录通常类似：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">app/DataBase/<br>├── decrypted/     # 解密后的完整数据库<br>└── export/        # 导出的 HTML、CSV、TXT 与媒体文件<br></code></pre></td></tr></table></figure>
-<p>数据库文件是否拆分、导出格式及媒体内容都由微信版本与数据量决定，不必强行要求只有一个数据库文件。</p>
-<h2 id="3-找到正确的联系人">3. 找到正确的联系人</h2>
-<p>数据库中使用的往往不是微信昵称，而是内部标识（例如 <code>wxid_...</code>）。先用导出工具提供的联系人列表、通讯录映射或数据库查询确认目标联系人。</p>
-<p>一个实用原则：先只导出少量消息做验证。确认昵称、消息方向和日期都正确后，再跑完整导出，避免把群聊、同名联系人或错误账号的数据混在一起。</p>
-<h2 id="4-导出为-TXT、CSV-或-HTML">4. 导出为 TXT、CSV 或 HTML</h2>
-<p>三种格式适合不同用途：</p>
+<h2 id="隐私与清理">隐私与清理</h2>
+<p>以下文件必须只保留在自己的受控环境中：</p>
 <table>
 <thead>
 <tr>
-<th>格式</th>
-<th>适合场景</th>
-<th>注意事项</th>
+<th>文件或目录</th>
+<th>为什么敏感</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>TXT</td>
-<td>人工阅读、全文搜索、归档</td>
-<td>保留时间、发送方和消息类型</td>
+<td><code>wx4_keys.json</code></td>
+<td>包含数据库密钥</td>
 </tr>
 <tr>
-<td>CSV</td>
-<td>Excel、统计分析、二次处理</td>
-<td>使用 UTF-8 with BOM，避免中文乱码</td>
+<td><code>app/DataBase/decrypted/</code></td>
+<td>解密后的完整聊天数据库</td>
 </tr>
 <tr>
-<td>HTML</td>
-<td>浏览器阅读、打印或截图</td>
-<td>不要部署到公开网站</td>
+<td><code>app/DataBase/export/</code></td>
+<td>导出的聊天记录与媒体</td>
+</tr>
+<tr>
+<td><code>app/log/logs/</code></td>
+<td>可能含有路径和运行信息</td>
 </tr>
 </tbody>
 </table>
-<p>导出时建议至少保留这些字段：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">时间、发送方、消息类型、文本内容、原始消息 ID（可选）<br></code></pre></td></tr></table></figure>
-<p>对图片、语音、表情、引用消息等非文本内容，可以输出占位描述和媒体相对路径。不要把二进制媒体直接塞进 CSV。</p>
-<p>下面是一个推荐的文本记录格式：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">[2026-11-08 09:41:12] 我<br>明天下午三点见。<br><br>[2026-11-08 09:42:03] 对方<br>好的，到时联系。<br></code></pre></td></tr></table></figure>
-<p>它对人类阅读友好，也方便后续喂给本地脚本做统计。</p>
-<h2 id="5-验证导出结果">5. 验证导出结果</h2>
-<p>导出后不要立刻删除原始副本，先抽查：</p>
-<ol>
-<li>首尾日期是否合理，消息数量是否明显异常；</li>
-<li>“我”和“对方”的方向是否颠倒；</li>
-<li>中文、emoji 和换行是否正常；</li>
-<li>撤回消息、图片、语音是否被妥善标注；</li>
-<li>CSV 用 Excel 打开是否乱码、列是否错位。</li>
-</ol>
-<p>如果 TXT 正常而 CSV 乱码，通常是编码问题。优先使用 UTF-8 with BOM；在 Python 中可写为 <code>encoding=&quot;utf-8-sig&quot;</code>。</p>
+<p>项目已将这些路径加入 <code>.gitignore</code>，仍建议在分享代码或打包文件前运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python tools/privacy_scan.py<br></code></pre></td></tr></table></figure>
+<p>完成使用后，将不再需要的导出副本从本机和回收站中清理；若要长期保存，使用加密磁盘或有访问控制的存储位置。</p>
 <h2 id="常见问题">常见问题</h2>
-<h3 id="工具找不到微信或读取密钥失败">工具找不到微信或读取密钥失败</h3>
-<p>确认电脑版微信正在登录、工具与微信的位数匹配，并以管理员权限运行。微信升级后内部数据格式可能变化，旧工具也可能暂时失效；先查看工具的 issue 与发布说明，不要随意尝试来源不明的二进制程序。</p>
-<h3 id="解密后-SQLite-仍然打不开">解密后 SQLite 仍然打不开</h3>
-<p>先确认拿到的是解密后的副本，而不是原始加密数据库；再检查工具日志中的密钥读取和解密结果。对于 WeChatMsg-4x，可查看 <code>app/DataBase/decrypted</code> 是否已生成内容；若要重新处理，先按项目文档清理对应的临时输出再重试。</p>
-<h3 id="导出的联系人不对">导出的联系人不对</h3>
-<p>不要只依赖显示昵称。用联系人标识、少量已知消息和时间范围交叉验证，再跑全量导出。</p>
-<h3 id="macOS-或-Linux-怎么办">macOS 或 Linux 怎么办</h3>
-<p>Windows 下较容易从运行中的客户端取得密钥。macOS 受系统安全机制影响，通常需要先借助兼容工具手动准备解密后的数据库；Linux 也常需要在其他系统完成解密后再进行分析。无论平台如何，都应只处理自己有权访问的数据。</p>
-<h2 id="导出后的安全处理">导出后的安全处理</h2>
-<p>完整聊天记录的敏感程度通常高于普通文档。完成分析后建议：</p>
-<ol>
-<li>将最终文件放在加密磁盘或受限目录；</li>
-<li>从分析结果中移除手机号、地址、身份证号、账号口令和第三方隐私；</li>
-<li>不要将 <code>wx4_keys.json</code>、<code>app/DataBase/decrypted</code>、<code>app/DataBase/export</code>、数据库或完整 CSV 提交到 Git；</li>
-<li>清理不再需要的临时副本，并确认回收站也已处理；</li>
-<li>分享统计结论时，只分享聚合数据或经过脱敏的片段。</li>
-</ol>
-<h2 id="总结">总结</h2>
-<p>微信聊天导出的关键不是“把文件导出来”，而是保证三件事：数据只来自本人有权访问的账户、原始数据不被改写、导出结果得到妥善保护。先用少量消息验证，再进行全量导出，能避免大多数联系人匹配和编码问题。</p>
-<p>后续若需要做聊天频率、回复速度或关键词等分析，直接以 CSV/TXT 作为输入即可；分析前依然应先做脱敏和最小化处理。</p>
+<h3 id="一直检测不到微信">一直检测不到微信</h3>
+<p>先确认电脑版微信正在登录，再以管理员身份运行工具。WeChatMsg-4x 专门增加了 4.x 适配层；如果微信版本发生变化，优先查看项目 README、适配说明和 issue。</p>
+<h3 id="手机聊天记录没有出现在电脑里">手机聊天记录没有出现在电脑里</h3>
+<p>先在手机微信执行“聊天记录迁移与备份 → 迁移到电脑微信”，迁移结束后重启电脑版微信，再重新检测和导出。</p>
+<h3 id="数据库已解密，但不知道如何看">数据库已解密，但不知道如何看</h3>
+<p>可以直接打开 <code>app/DataBase/export/index.html</code> 浏览；若需要查看 SQLite 数据库本身，可用 DB Browser for SQLite 等工具打开解密后的文件。</p>
+<h2 id="小结">小结</h2>
+<p>本次的核心工具是 <strong>WeChatMsg-4x</strong>。它负责本地检测微信、取密钥、解密、查看与导出；我们只将导出结果用于自己的记录整理。整个流程的底线是：只处理自己的数据、绝不公开密钥与完整聊天记录、导出后做好本地保存和清理。</p>
 
                 
               </div>
@@ -435,11 +416,9 @@
       
         <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA/" class="print-no-link">#数据导出</a>
       
-        <a href="/tags/SQLite/" class="print-no-link">#SQLite</a>
-      
-        <a href="/tags/Python/" class="print-no-link">#Python</a>
-      
         <a href="/tags/%E9%9A%90%E7%A7%81/" class="print-no-link">#隐私</a>
+      
+        <a href="/tags/WeChatMsg-4x/" class="print-no-link">#WeChatMsg-4x</a>
       
     </div>
   
@@ -451,7 +430,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>微信聊天记录导出：从本地数据库到可读文本</div>
+      <div>使用 WeChatMsg-4x 导出电脑版微信聊天记录</div>
       <div>https://li-hongxu.github.io/2026/11/08/微信聊天记录导出：从本地数据库到可读文本/</div>
     </div>
     <div class="license-meta">
