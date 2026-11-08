@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>微信聊天记录导出：从本地数据库到可读文本</title>
+    <link href="/2026/11/08/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%AF%BC%E5%87%BA%EF%BC%9A%E4%BB%8E%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%B0%E5%8F%AF%E8%AF%BB%E6%96%87%E6%9C%AC/"/>
+    <url>/2026/11/08/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%AF%BC%E5%87%BA%EF%BC%9A%E4%BB%8E%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%B0%E5%8F%AF%E8%AF%BB%E6%96%87%E6%9C%AC/</url>
+    
+    <content type="html"><![CDATA[<h1>前言</h1><p>有时我们需要把自己的微信聊天记录整理成可搜索、可备份、可进一步分析的文件，例如回顾项目沟通、生成个人聊天统计，或迁移到笔记系统。</p><p>这篇文章记录一次在 Windows 上完成导出的流程：从电脑版微信的本地数据中取得<strong>本人账号</strong>的聊天数据库，解密后读取 SQLite 数据，再导出为 TXT、CSV 或 HTML。不同微信版本和工具的参数会变化，但整体思路是一致的。</p><blockquote><p>仅处理自己有权访问的数据，并妥善保护导出文件。聊天记录通常包含姓名、联系方式、地址、工作与隐私内容；不要把原始数据库、密钥、wxid 或完整导出文件上传到公开仓库或网盘。</p></blockquote><h2 id="准备工作">准备工作</h2><p>需要准备：</p><ol><li>Windows 电脑，且电脑版微信保持登录。</li><li>管理员权限启动终端或支持脚本执行的工具；有些工具需要从微信进程内存中读取数据库密钥。</li><li>一个可信的开源导出/解密工具，例如 <code>wechat-decrypt</code>，以及 Python 3 环境。</li><li>足够的磁盘空间。聊天图片、语音与数据库副本可能占用数 GB。</li></ol><p>建议先关闭自动同步、退出不相关的账号，并把导出目录放在本机加密磁盘或受访问控制的位置。</p><h2 id="流程概览">流程概览</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">电脑版微信保持登录<br>        ↓<br>定位本地数据并复制（不要直接改原文件）<br>        ↓<br>提取数据库密钥、解密数据库<br>        ↓<br>SQLite 读取消息表与联系人映射<br>        ↓<br>按联系人筛选、清洗并导出 TXT / CSV / HTML<br>        ↓<br>检查敏感信息，安全保存或删除临时文件<br></code></pre></td></tr></table></figure><h2 id="1-保持电脑版微信登录">1. 保持电脑版微信登录</h2><p>先启动并登录电脑版微信，不要在导出中途退出。Windows 下常用的解密工具会从正在运行的微信进程中取得数据库密钥；如果微信未登录，通常会报找不到进程、密钥为空或无法解密。</p><p>如果工具提示权限不足，先完全退出工具，以管理员身份重新打开终端/客户端，再执行一次。不要为了方便关闭系统安全防护或下载来源不明的破解程序。</p><h2 id="2-使用工具解密本地数据库">2. 使用工具解密本地数据库</h2><p>以 <code>wechat-decrypt</code> 一类工具为例，目标是得到可由 SQLite 打开的数据库文件。项目的具体命令会随版本不同而变化，应以其 README 为准；常见的操作顺序是：</p><ol><li>让工具检测正在运行的微信进程；</li><li>读取数据库密钥；</li><li>复制并解密消息数据库到单独的 <code>decrypted</code> 目录；</li><li>验证生成的 <code>message_*.db</code> 能被 SQLite 打开。</li></ol><p>不要在原始微信数据目录上做覆盖写入。正确的工具会先复制数据库，之后只处理副本；这既避免损坏微信数据，也方便在失败后重新尝试。</p><p>解密完成后的目录通常类似：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">decrypted/<br>├── message_0.db<br>├── message_1.db<br>└── ...<br></code></pre></td></tr></table></figure><p>文件名和拆分数量由微信版本、数据量决定，不必强行要求只有一个数据库。</p><h2 id="3-找到正确的联系人">3. 找到正确的联系人</h2><p>数据库中使用的往往不是微信昵称，而是内部标识（例如 <code>wxid_...</code>）。先用导出工具提供的联系人列表、通讯录映射或数据库查询确认目标联系人。</p><p>一个实用原则：先只导出少量消息做验证。确认昵称、消息方向和日期都正确后，再跑完整导出，避免把群聊、同名联系人或错误账号的数据混在一起。</p><h2 id="4-导出为-TXT、CSV-或-HTML">4. 导出为 TXT、CSV 或 HTML</h2><p>三种格式适合不同用途：</p><table><thead><tr><th>格式</th><th>适合场景</th><th>注意事项</th></tr></thead><tbody><tr><td>TXT</td><td>人工阅读、全文搜索、归档</td><td>保留时间、发送方和消息类型</td></tr><tr><td>CSV</td><td>Excel、统计分析、二次处理</td><td>使用 UTF-8 with BOM，避免中文乱码</td></tr><tr><td>HTML</td><td>浏览器阅读、打印或截图</td><td>不要部署到公开网站</td></tr></tbody></table><p>导出时建议至少保留这些字段：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">时间、发送方、消息类型、文本内容、原始消息 ID（可选）<br></code></pre></td></tr></table></figure><p>对图片、语音、表情、引用消息等非文本内容，可以输出占位描述和媒体相对路径。不要把二进制媒体直接塞进 CSV。</p><p>下面是一个推荐的文本记录格式：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">[2026-11-08 09:41:12] 我<br>明天下午三点见。<br><br>[2026-11-08 09:42:03] 对方<br>好的，到时联系。<br></code></pre></td></tr></table></figure><p>它对人类阅读友好，也方便后续喂给本地脚本做统计。</p><h2 id="5-验证导出结果">5. 验证导出结果</h2><p>导出后不要立刻删除原始副本，先抽查：</p><ol><li>首尾日期是否合理，消息数量是否明显异常；</li><li>“我”和“对方”的方向是否颠倒；</li><li>中文、emoji 和换行是否正常；</li><li>撤回消息、图片、语音是否被妥善标注；</li><li>CSV 用 Excel 打开是否乱码、列是否错位。</li></ol><p>如果 TXT 正常而 CSV 乱码，通常是编码问题。优先使用 UTF-8 with BOM；在 Python 中可写为 <code>encoding=&quot;utf-8-sig&quot;</code>。</p><h2 id="常见问题">常见问题</h2><h3 id="工具找不到微信或读取密钥失败">工具找不到微信或读取密钥失败</h3><p>确认电脑版微信正在登录、工具与微信的位数匹配，并以管理员权限运行。微信升级后内部数据格式可能变化，旧工具也可能暂时失效；先查看工具的 issue 与发布说明，不要随意尝试来源不明的二进制程序。</p><h3 id="解密后-SQLite-仍然打不开">解密后 SQLite 仍然打不开</h3><p>先确认拿到的是解密后的副本，而不是原始加密数据库；再检查工具日志中的密钥读取和解密结果。数据库可能被拆分到多个 <code>message_*.db</code>，需要全部纳入查询。</p><h3 id="导出的联系人不对">导出的联系人不对</h3><p>不要只依赖显示昵称。用联系人标识、少量已知消息和时间范围交叉验证，再跑全量导出。</p><h3 id="macOS-或-Linux-怎么办">macOS 或 Linux 怎么办</h3><p>Windows 下较容易从运行中的客户端取得密钥。macOS 受系统安全机制影响，通常需要先借助兼容工具手动准备解密后的数据库；Linux 也常需要在其他系统完成解密后再进行分析。无论平台如何，都应只处理自己有权访问的数据。</p><h2 id="导出后的安全处理">导出后的安全处理</h2><p>完整聊天记录的敏感程度通常高于普通文档。完成分析后建议：</p><ol><li>将最终文件放在加密磁盘或受限目录；</li><li>从分析结果中移除手机号、地址、身份证号、账号口令和第三方隐私；</li><li>不要将 <code>decrypted</code> 目录、密钥、数据库或完整 CSV 提交到 Git；</li><li>清理不再需要的临时副本，并确认回收站也已处理；</li><li>分享统计结论时，只分享聚合数据或经过脱敏的片段。</li></ol><h2 id="总结">总结</h2><p>微信聊天导出的关键不是“把文件导出来”，而是保证三件事：数据只来自本人有权访问的账户、原始数据不被改写、导出结果得到妥善保护。先用少量消息验证，再进行全量导出，能避免大多数联系人匹配和编码问题。</p><p>后续若需要做聊天频率、回复速度或关键词等分析，直接以 CSV/TXT 作为输入即可；分析前依然应先做脱敏和最小化处理。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>效率工具</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微信</tag>
+      
+      <tag>数据导出</tag>
+      
+      <tag>SQLite</tag>
+      
+      <tag>Python</tag>
+      
+      <tag>隐私</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>为什么先做 Harness Validation，再做 Desktop Runtime</title>
     <link href="/2026/09/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%85%88%E5%81%9A-Harness-Validation%EF%BC%8C%E5%86%8D%E5%81%9A-Desktop-Runtime/"/>
     <url>/2026/09/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%85%88%E5%81%9A-Harness-Validation%EF%BC%8C%E5%86%8D%E5%81%9A-Desktop-Runtime/</url>
